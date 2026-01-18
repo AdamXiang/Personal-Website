@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     // Ensures assets are loaded relatively (e.g., ./assets/...) so the app works in subdirectories
-    base: '/Personal-Website/',
+    base: './',
     define: {
       // Safely expose the API_KEY. 
       'process.env.API_KEY': JSON.stringify(env.API_KEY || ''),
