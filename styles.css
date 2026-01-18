@@ -408,8 +408,12 @@ mark:before {
  *  Simplified Animations to guarantee visibility
  *  Removed complex transforms and opacity:0 starts 
  *  to resolve "empty screen" issues on deployment.
+ *  Added .home-line-item rules to ensure visibility.
  */
-.template h1 > span, .template .p > span, .template .links > a {
+.template h1 > span, 
+.template .p > span, 
+.template .links > a,
+.home-line-item span {
   display: inline-block;
   opacity: 1; 
   transform: none;
@@ -431,6 +435,9 @@ mark:before {
     transition: all 0.2s ease;
     width: fit-content;
     border-radius: 4px;
+    /* Ensure no residual hidden state */
+    opacity: 1;
+    visibility: visible;
 }
 /* On mobile, center line items */
 @media (max-width: 599px) {
