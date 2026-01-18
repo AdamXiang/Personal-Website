@@ -1,3 +1,4 @@
+
 import { Profile, Experience, Project, Skill } from './types';
 
 export const PROFILE: Profile = {
@@ -7,7 +8,7 @@ export const PROFILE: Profile = {
   phone: "(+886) 922 554 637",
   location: "Taipei City, Taiwan",
   summary: "Data Engineer designing reliable data pipelines & cloud solutions. Enabling businesses to unlock insights with Python, SQL, Databricks, DBT & Azure. Background in brain science research and data analytics.",
-  avatarUrl: "https://ui-avatars.com/api/?name=Ching+Hsiang+Chang&background=random",
+  avatarUrl: "https://drive.google.com/thumbnail?id=1yEC-EG124Dnv2WqTA7kY-aX0SA1HCeOQ&sz=w1000",
   socials: {
     linkedin: "https://www.linkedin.com/in/ching-hsiang-chang-782281217/",
     github: "https://github.com/AdamXiang",

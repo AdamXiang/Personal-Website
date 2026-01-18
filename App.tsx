@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 import { PROFILE, EXPERIENCE, EDUCATION, SKILLS, PROJECTS, MILITARY_SERVICE, CLUBS } from './constants';
 import { AIChat } from './components/AIChat';
@@ -174,91 +175,106 @@ export default function App() {
   return (
     <div className="wrapper">
       <StarsCanvas />
-      {/* 新增的個人照片背景 */}
-      <div 
-        id="my-profile-bg"
-        style={{
-          position: 'fixed',
-          top: 0,
-          right: 0,
-          bottom: 0,
-          width: '60vh', 
-          height: '100vh',
-          zIndex: 0, 
-          
-          backgroundImage: `
-            linear-gradient(
-              to right, 
-              #171a19 5%, 
-              rgba(23, 26, 25, 0.9) 30%, 
-              rgba(23, 26, 25, 0.4) 60%, 
-              rgba(23, 26, 25, 0) 100%
-            ), 
-            url('images/profile.jpg')
-          `,
-          // Note: removed leading slash from url('images/profile.jpg') to work better with relative base paths
-          
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      ></div>
       
       <div className="container">
         
         {/* HOME VIEW */}
         <div className={`template color-yellow ${view === 'home' ? 'current' : ''}`} data-template="home">
           
-          <main className="flex flex-col justify-center">
+          <main className="flex flex-col lg:flex-row items-center lg:justify-between w-full h-full gap-8 lg:gap-20 px-4 lg:px-0 py-4 lg:py-0 pb-32 lg:pb-0">
             
-            <div className="home-line-item group">
-               <div className="absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
-                  <GripVertical size={20} />
-               </div>
-               <span className="text-7xl md:text-7xl font-bold leading-tight"><mark>Data Engineer</mark></span>
+            {/* Left Side (Desktop) / Bottom Side (Mobile): Navigation & Titles */}
+            <div className="flex flex-col items-center lg:items-start justify-center w-full lg:w-1/2 z-10 lg:pl-8 order-2 lg:order-1 mt-2 lg:mt-0 text-center lg:text-left">
+              <div className="home-line-item group">
+                 <div className="hidden lg:block absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
+                    <GripVertical size={20} />
+                 </div>
+                 <span className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight"><mark>Data Engineer</mark></span>
+              </div>
+
+              <div className="home-line-item group">
+                 <div className="hidden lg:block absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
+                    <GripVertical size={20} />
+                 </div>
+                <span className="text-lg sm:text-2xl lg:text-4xl text-slate-300 font-normal leading-snug">Rooted in Animal and Brain Science</span>
+              </div>
+
+              <div className="home-line-item group">
+                 <div className="hidden lg:block absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
+                    <GripVertical size={20} />
+                 </div>
+                <span className="text-slate-400 font-mono text-sm sm:text-base lg:text-lg">{PROFILE.email.replace('mailto:', '')}</span>
+              </div>
+
+              <div className="home-line-item group">
+                 <div className="hidden lg:block absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
+                    <GripVertical size={20} />
+                 </div>
+                <span className="text-slate-400 font-mono text-sm sm:text-base lg:text-lg">{PROFILE.phone}</span>
+              </div>
+              
+              <div className="home-line-item group">
+                 <div className="hidden lg:block absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
+                    <GripVertical size={20} />
+                 </div>
+                <div className="links">
+                  <a className="link color-yellow" onClick={() => handleNav('experience')} title="View Experience">
+                    View Experience
+                  </a>
+                  <a className="link color-green" onClick={() => handleNav('projects')} title="Side Project">
+                    Side Project
+                  </a>
+                  <a className="link color-red" onClick={() => handleNav('about')} title="About Me">
+                    About Me
+                  </a>
+                </div>
+              </div>
             </div>
 
-            <div className="home-line-item group">
-               <div className="absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
-                  <GripVertical size={20} />
-               </div>
-              <span className="text-3xl md:text-4xl text-slate-300 whitespace-nowrap font-normal">Rooted in Animal and Brain Science</span>
-            </div>
+            {/* Right Side (Desktop) / Top Side (Mobile): Introduction Card */}
+            <div className="flex w-full lg:w-1/2 justify-center lg:justify-end items-center lg:h-full z-20 lg:pr-8 order-1 lg:order-2 mb-4 lg:mb-0">
+              <div className="relative w-full max-w-[360px] sm:max-w-[420px] group">
+                {/* Glow Backdrop */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-blue-500 to-teal-400 rounded-2xl blur-md opacity-30 group-hover:opacity-60 transition duration-1000"></div>
+                
+                {/* Glass Card */}
+                <div className="relative bg-[#1a1c20]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-6 lg:p-8 shadow-2xl flex flex-col items-center text-center gap-4 lg:gap-6">
+                  
+                  {/* Window Controls */}
+                  <div className="w-full flex justify-start">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e]"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#febc2e] border border-[#d89e24]"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#28c840] border border-[#1aab29]"></div>
+                    </div>
+                  </div>
 
-            <div className="home-line-item group">
-               <div className="absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
-                  <GripVertical size={20} />
-               </div>
-              <span className="text-slate-400 font-mono text-lg">{PROFILE.email.replace('mailto:', '')}</span>
-            </div>
+                  {/* Profile Image - Centered and Circular */}
+                  <div className="relative shrink-0 mt-2">
+                    <div className="absolute -inset-4 bg-blue-500/20 rounded-full blur-xl animate-pulse"></div>
+                    <div className="relative w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 border-white/10 shadow-xl mx-auto">
+                       <img 
+                         src={PROFILE.avatarUrl} 
+                         alt={PROFILE.name} 
+                         className="w-full h-full object-cover object-top"
+                       />
+                    </div>
+                  </div>
 
-            <div className="home-line-item group">
-               <div className="absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
-                  <GripVertical size={20} />
-               </div>
-              <span className="text-slate-400 font-mono text-lg">{PROFILE.phone}</span>
-            </div>
-            
-            <div className="home-line-item group">
-               <div className="absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
-                  <GripVertical size={20} />
-               </div>
-              <div className="links">
-                <a className="link color-yellow" onClick={() => handleNav('experience')} title="View Experience">
-                  View Experience
-                </a>
-                <a className="link color-green" onClick={() => handleNav('projects')} title="Side Project">
-                  Side Project
-                </a>
-                <a className="link color-red" onClick={() => handleNav('about')} title="About Me">
-                  About Me
-                </a>
+                  {/* Text Content - Centered Below */}
+                  <div className="flex-1 w-full">
+                    <h2 className="text-2xl lg:text-3xl font-bold text-white mb-2 lg:mb-4 font-[Roboto Slab] tracking-wide">{PROFILE.name}</h2>
+                    <p className="text-slate-300 text-xs lg:text-sm leading-relaxed font-sans px-2">
+                      {PROFILE.summary}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
           </main>
           
-          <footer>
+          <footer className="fixed-footer">
             <div className="links">
               <a className="link small alt" href={PROFILE.socials.github} target="_blank" rel="noopener noreferrer">GitHub</a>
               <a className="link small alt" href={PROFILE.socials.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -289,7 +305,7 @@ export default function App() {
               ))}
             </ul>
 
-            <div className="links" style={{marginTop: '30px'}}>
+            <div className="links pb-8" style={{marginTop: '30px'}}>
               <a className="link color-red" onClick={() => handleNav('home')}>Back Home</a>
             </div>
           </main>
@@ -331,7 +347,7 @@ export default function App() {
               ))}
             </div>
 
-            <div className="links" style={{marginTop: '30px'}}>
+            <div className="links pb-8" style={{marginTop: '30px'}}>
               <a className="link color-red" onClick={() => handleNav('home')}>Back Home</a>
             </div>
           </main>
@@ -401,7 +417,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="links" style={{marginTop: '30px'}}>
+            <div className="links pb-8" style={{marginTop: '30px'}}>
               <a className="link color-red" onClick={() => handleNav('home')}>Back Home</a>
             </div>
           </main>
