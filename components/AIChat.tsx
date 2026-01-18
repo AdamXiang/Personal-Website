@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from "@google/genai";
 import { MessageCircle, X, Send, Bot, Loader2 } from 'lucide-react';
@@ -82,28 +83,28 @@ export const AIChat: React.FC = () => {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Chat Window */}
       {isOpen && (
-        <div className="mb-4 w-80 md:w-96 bg-secondary border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fade-in-up" style={{ height: '500px' }}>
+        <div className="mb-4 w-80 md:w-96 bg-white border border-gray-200 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fade-in-up" style={{ height: '500px' }}>
           {/* Header */}
-          <div className="bg-slate-900 p-4 border-b border-slate-700 flex justify-between items-center">
+          <div className="bg-white p-4 border-b border-gray-200 flex justify-between items-center shadow-sm z-10">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent">
+              <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
                 <Bot size={18} />
               </div>
-              <span className="font-semibold text-slate-100">Ask about Adam</span>
+              <span className="font-semibold text-gray-800">Ask about Adam</span>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-white transition">
+            <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-gray-700 transition">
               <X size={20} />
             </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-800/50">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
             {messages.map((msg, idx) => (
               <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] p-3 rounded-2xl text-sm ${
+                <div className={`max-w-[85%] p-3 rounded-2xl text-sm shadow-sm ${
                   msg.role === 'user' 
-                    ? 'bg-accent text-slate-900 rounded-tr-none' 
-                    : 'bg-slate-700 text-slate-100 rounded-tl-none'
+                    ? 'bg-blue-600 text-white rounded-tr-none' 
+                    : 'bg-white border border-gray-200 text-gray-700 rounded-tl-none'
                 }`}>
                   {msg.text}
                 </div>
@@ -111,9 +112,9 @@ export const AIChat: React.FC = () => {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-slate-700 p-3 rounded-2xl rounded-tl-none flex items-center gap-2">
-                  <Loader2 size={16} className="animate-spin text-accent" />
-                  <span className="text-xs text-slate-400">Thinking...</span>
+                <div className="bg-white border border-gray-200 p-3 rounded-2xl rounded-tl-none flex items-center gap-2 shadow-sm">
+                  <Loader2 size={16} className="animate-spin text-blue-600" />
+                  <span className="text-xs text-gray-500">Thinking...</span>
                 </div>
               </div>
             )}
@@ -121,7 +122,7 @@ export const AIChat: React.FC = () => {
           </div>
 
           {/* Input */}
-          <div className="p-3 bg-slate-900 border-t border-slate-700">
+          <div className="p-3 bg-white border-t border-gray-200">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -129,12 +130,12 @@ export const AIChat: React.FC = () => {
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                 placeholder="Ask about my skills..."
-                className="flex-1 bg-slate-800 border-none rounded-xl px-4 py-2 text-sm text-white focus:ring-2 focus:ring-accent outline-none placeholder-slate-500"
+                className="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-4 py-2 text-sm text-gray-800 focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none placeholder-gray-400 transition-all"
               />
               <button 
                 onClick={handleSend}
                 disabled={isLoading || !inputValue.trim()}
-                className="bg-accent hover:bg-accentHover text-slate-900 p-2 rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
               >
                 <Send size={18} />
               </button>
@@ -146,11 +147,11 @@ export const AIChat: React.FC = () => {
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="group relative flex items-center justify-center w-14 h-14 bg-accent hover:bg-accentHover text-slate-900 rounded-full shadow-lg transition-all hover:scale-110 active:scale-95"
+        className="group relative flex items-center justify-center w-14 h-14 bg-white hover:bg-gray-50 text-blue-600 border border-gray-200 rounded-full shadow-lg transition-all hover:scale-110 active:scale-95"
       >
         {isOpen ? <X size={24} /> : <MessageCircle size={28} />}
         {!isOpen && (
-          <span className="absolute right-16 bg-slate-800 text-white text-xs px-2 py-1 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition pointer-events-none">
+          <span className="absolute right-16 bg-white text-gray-800 border border-gray-200 px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition shadow-md font-medium text-sm pointer-events-none">
             Chat with AI
           </span>
         )}
