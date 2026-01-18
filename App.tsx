@@ -145,9 +145,9 @@ export default function App() {
         await new Promise(r => setTimeout(r, 3000));
         if (!isMounted) break;
 
-        // 2. Flatten
+        // 2. Flatten (Shortened duration for better pacing)
         setIdentityState('flat');
-        await new Promise(r => setTimeout(r, 3000));
+        await new Promise(r => setTimeout(r, 1500));
         if (!isMounted) break;
 
         // 3. Fluctuated (Robot/Wave animation)
@@ -157,7 +157,7 @@ export default function App() {
 
         // 4. Flatten again before going back to working
         setIdentityState('flat');
-        await new Promise(r => setTimeout(r, 3000));
+        await new Promise(r => setTimeout(r, 1500));
         if (!isMounted) break;
       }
     };
