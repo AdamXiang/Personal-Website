@@ -287,7 +287,7 @@ export default function App() {
                 </li>
               ))}
             </ul>
-            <div className="links pb-8" style={{marginTop: '30px'}}>
+            <div className="links pb-8" style={{marginTop: '60px'}}>
               <a className="link color-red cursor-pointer" onClick={() => handleNav('home')}>Back Home</a>
             </div>
           </main>
@@ -327,7 +327,7 @@ export default function App() {
                 </div>
               ))}
             </div>
-            <div className="links pb-8" style={{marginTop: '30px'}}>
+            <div className="links pb-8" style={{marginTop: '60px'}}>
               <a className="link color-red cursor-pointer" onClick={() => handleNav('home')}>Back Home</a>
             </div>
           </main>
@@ -397,7 +397,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="links pb-8" style={{marginTop: '30px'}}>
+            <div className="links pb-8" style={{marginTop: '60px'}}>
               <a className="link color-red cursor-pointer" onClick={() => handleNav('home')}>Back Home</a>
             </div>
           </main>

@@ -12,6 +12,7 @@ html, body, #root {
     height: 100%;
     margin: 0;
 }
+
 html, body {
   width: 100%;
   height: 100%;
@@ -347,6 +348,7 @@ mark:before {
   width: 100%;
   overflow-y: auto;
   z-index: 2; /* Explicitly set z-index above canvas */
+  padding-bottom: 50px; /* Added padding to ensure content doesn't hit the very bottom */
 }
 @media (max-width: 599px) {
   .template main { 
