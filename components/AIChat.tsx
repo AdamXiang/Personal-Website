@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from "@google/genai";
-import { MessageCircle, X, Send, Bot, User, Loader2 } from 'lucide-react';
+import { MessageCircle, X, Send, Bot, Loader2 } from 'lucide-react';
 import { PROFILE, EXPERIENCE, PROJECTS, SKILLS } from '../constants';
 
 const SYSTEM_INSTRUCTION = `You are a helpful AI assistant for the personal portfolio website of ${PROFILE.name}. 
