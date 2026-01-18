@@ -174,7 +174,7 @@ export default function App() {
   return (
     <div className="wrapper">
       <StarsCanvas />
-      {/* 新增的個人照片背景 - CSS handles the image path directly */}
+      {/* 新增的個人照片背景 */}
       <div 
         id="my-profile-bg"
         style={{
@@ -186,7 +186,6 @@ export default function App() {
           height: '100vh',
           zIndex: 0, 
           
-          // 👇 這裡直接寫字串路徑，React 會自動去 public 資料夾找
           backgroundImage: `
             linear-gradient(
               to right, 
@@ -195,9 +194,9 @@ export default function App() {
               rgba(23, 26, 25, 0.4) 60%, 
               rgba(23, 26, 25, 0) 100%
             ), 
-            url('/images/profile.jpg') 
+            url('images/profile.jpg')
           `,
-          // ⚠️ 注意：如果您放在 public/images 裡面，上面就要改成 url('/images/profile.jpg')
+          // Note: removed leading slash from url('images/profile.jpg') to work better with relative base paths
           
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
@@ -223,7 +222,7 @@ export default function App() {
                <div className="absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
                   <GripVertical size={20} />
                </div>
-              <span className="text-3xl md:text-4xl text-slate-300 whitespace-nowrap font-normal">Began From Animal and Brain Science</span>
+              <span className="text-3xl md:text-4xl text-slate-300 whitespace-nowrap font-normal">Rooted in Animal and Brain Science</span>
             </div>
 
             <div className="home-line-item group">
