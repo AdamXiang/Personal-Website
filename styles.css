@@ -86,7 +86,7 @@ p, .p {
 a {
   cursor: pointer;
   color: inherit;
-  transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0s;
+  transition: all 0.3s ease;
   text-decoration: none;
 }
 
@@ -99,7 +99,7 @@ a.link:not(.small):before {
   content: '';
   z-index: -1;
   display: block;
-  transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0s;
+  transition: all 0.3s ease;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -120,7 +120,7 @@ a.link.small:before {
   content: '';
   z-index: -1;
   display: block;
-  transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0s;
+  transition: all 0.3s ease;
   position: absolute;
   left: 0;
   bottom: 2px;
@@ -175,7 +175,7 @@ a.link.small:hover:before {
   background-color: #53a2be; 
 }
 
-/* Colors - Element Overrides (Specific Link Colors) - Defined after contextual to take precedence */
+/* Colors - Element Overrides (Specific Link Colors) */
 a.link.color-green:not(.small), a.link.small.color-green:hover { 
   color: #419d78; 
 }
@@ -222,6 +222,7 @@ mark:before {
   left: 0;
   bottom: 0;
   right: 0;
+  transition: right 0.7s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .color-yellow mark { color: #e0a458; }
 .color-yellow mark:before { background-color: rgba(224,164,88,0.14); }
@@ -238,7 +239,6 @@ mark:before {
   position: absolute;
   top: 49px;
   left: 0;
-  transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0s;
   z-index: 10;
 }
 #identity > div {
@@ -247,8 +247,8 @@ mark:before {
   margin-top: -5px;
   margin-left: -5px;
   border-radius: 50%;
-  transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0s;
   position: absolute;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth transition for flattening */
 }
 #identity > div:nth-child(1) { background-color: #419d78; top: -12px; left: -12px; }
 #identity > div:nth-child(2) { background-color: #e0a458; top: 12px; left: -12px; }
@@ -265,6 +265,17 @@ mark:before {
 #identity.robot > div:nth-child(2) { animation-delay: 0.15s; }
 #identity.robot > div:nth-child(3) { animation-delay: 0.3s; }
 #identity.robot > div:nth-child(4) { animation-delay: 0.45s; }
+
+/* Flattened State */
+#identity.flat > div {
+    animation: none; /* Stop the working/robot animations */
+    top: 0 !important;
+}
+#identity.flat > div:nth-child(1) { left: -25px !important; }
+#identity.flat > div:nth-child(2) { left: -8px !important; }
+#identity.flat > div:nth-child(3) { left: 9px !important; }
+#identity.flat > div:nth-child(4) { left: 26px !important; }
+
 
 @keyframes identityRobot {
   0%, 100% { transform: translateY(0); }
@@ -296,31 +307,7 @@ mark:before {
 }
 
 /* Home Background Hero */
-.home-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-size: cover;
-  background-position: center right; /* Adjusted to better show portrait watermarks */
-  background-repeat: no-repeat;
-  z-index: 0; /* Updated z-index to be behind content but visible */
-  opacity: 0;
-  animation: fadeInBg 1.5s ease forwards;
-}
-
-.home-bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, #171a19 5%, rgba(23,26,25,0.7) 50%, rgba(23,26,25,0.1) 100%);
-}
-
-@keyframes fadeInBg {
-  from { opacity: 0; transform: scale(1.05); }
-  to { opacity: 1; transform: scale(1); }
-}
+/* Removed old .home-bg and replaced with #my-profile-bg below */
 
 /* Template Logic */
 .template {
@@ -343,6 +330,7 @@ mark:before {
   bottom: 77px;
   width: 100%;
   overflow-y: auto;
+  z-index: 2; /* Explicitly set z-index above canvas */
 }
 @media (max-width: 599px) {
   .template main { top: 119px; }
@@ -351,45 +339,42 @@ mark:before {
   position: absolute;
   left: 0;
   bottom: 28px;
+  z-index: 2;
 }
 
-/* Animations for text */
+/* 
+ *  Simplified Animations to guarantee visibility
+ *  Removed complex transforms and opacity:0 starts 
+ *  to resolve "empty screen" issues on deployment.
+ */
 .template h1 > span, .template .p > span, .template .links > a {
   display: inline-block;
-  /* opacity: 0; REMOVED to prevent invisible content if animation fails */
-  /* transform: translateY(70px) rotate(5deg); REMOVED */
-  animation: lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both; /* Changed from forwards to both */
-}
-
-.template.current h1 > span:nth-child(1) { animation-delay: 0.1s; }
-.template.current h1 > span:nth-child(3) { animation-delay: 0.15s; } /* Adjusted for BR tag */
-.template.current h1 > span:nth-child(5) { animation-delay: 0.2s; } 
-.template.current .p > span:nth-child(1) { animation-delay: 0.25s; }
-.template.current .p > span:nth-child(2) { animation-delay: 0.3s; }
-.template.current .links > a:nth-child(1) { animation-delay: 0.35s; }
-.template.current .links > a:nth-child(2) { animation-delay: 0.4s; }
-.template.current .links > a:nth-child(3) { animation-delay: 0.45s; }
-.template.current footer .links > a { animation-delay: 0.5s; }
-
-@keyframes lineNum {
-  0% {
-    opacity: 0;
-    transform: translateY(70px) rotate(5deg);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) rotate(0);
-  }
+  opacity: 1; 
+  transform: none;
 }
 
 .template h1 > * mark:before,
 .template .h1 > * mark:before {
-  right: 100%;
-  animation: markAnimation 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0.35s both;
+  right: 0; /* Static highlight */
 }
-@keyframes markAnimation {
-  0% { right: 100%; }
-  100% { right: 0; }
+
+/* Home Page Line Items - New Style */
+.home-line-item {
+    position: relative;
+    padding: 12px 0;
+    padding-left: 10px; /* Base padding */
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+    width: fit-content;
+    border-radius: 4px;
+}
+
+.home-line-item:hover {
+    cursor: grab;
+    background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+    padding-left: 10px; /* Keep padding consistent or shift if desired */
 }
 
 /* Experience List specific */
@@ -403,8 +388,6 @@ ul.experience-list li {
   border-left: 2px solid #333;
   padding-left: 20px;
   position: relative;
-  /* opacity: 0; REMOVED */
-  animation: lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 ul.experience-list li:before {
   content: '';
@@ -443,8 +426,6 @@ ul.experience-list .tech-stack span {
   border: 1px solid rgba(255,255,255,0.1);
   padding: 25px;
   border-radius: 8px;
-  /* opacity: 0; REMOVED */
-  animation: lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 .project-item:hover {
@@ -461,7 +442,7 @@ ul.experience-list .tech-stack span {
   font-size: 13px;
   line-height: 1.6;
   margin-bottom: 15px;
-  display: block; /* Override default p flex */
+  display: block;
 }
 .project-links a {
   font-size: 12px;
@@ -486,8 +467,6 @@ ul.experience-list .tech-stack span {
   background: rgba(255,255,255,0.05);
   padding: 20px;
   border-radius: 8px;
-  /* opacity: 0; REMOVED */
-  animation: lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 .skill-card h4 { color: #419d78; margin-top: 0; }
 .skill-card div span {
@@ -511,4 +490,13 @@ ul.experience-list .tech-stack span {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255,255,255,0.4); 
+}
+
+/* --- 手機版 (RWD) 調整 --- */
+@media (max-width: 768px) {
+  #my-profile-bg {
+    width: 100%; /* 手機版佔滿全寬 */
+    background-position: center 20%; /* 稍微往下移一點 */
+    opacity: 0.3; /* 降低透明度，讓文字在手機上更清楚 */
+  }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { PROFILE, EXPERIENCE, EDUCATION, SKILLS, PROJECTS, MILITARY_SERVICE, CLUBS } from './constants';
 import { AIChat } from './components/AIChat';
+import { GripVertical } from 'lucide-react';
 
 // --- Stars Animation Component ---
 const StarsCanvas = () => {
@@ -117,7 +118,7 @@ const StarsCanvas = () => {
 };
 
 // --- Identity Animation Component ---
-const Identity = ({ state }: { state: 'working' | 'rest' | 'robot' }) => {
+const Identity = ({ state }: { state: 'working' | 'rest' | 'robot' | 'flat' }) => {
   return (
     <div className={`loading ${state}`} id="identity" title="Identity">
       <div></div>
@@ -131,14 +132,39 @@ const Identity = ({ state }: { state: 'working' | 'rest' | 'robot' }) => {
 // --- Main App Component ---
 export default function App() {
   const [view, setView] = useState<'home' | 'experience' | 'projects' | 'about'>('home');
-  const [identityState, setIdentityState] = useState<'working' | 'robot'>('working');
+  const [identityState, setIdentityState] = useState<'working' | 'robot' | 'flat'>('working');
 
-  // Switch identity state periodically for effect
+  // Cycle identity state: Working -> Flat -> Robot(Fluctuated) -> Flat -> Repeat
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIdentityState(prev => prev === 'working' ? 'robot' : 'working');
-    }, 5000);
-    return () => clearInterval(interval);
+    let isMounted = true;
+    
+    const runAnimationCycle = async () => {
+      while (isMounted) {
+        // 1. Working (default moving)
+        setIdentityState('working');
+        await new Promise(r => setTimeout(r, 3000));
+        if (!isMounted) break;
+
+        // 2. Flatten
+        setIdentityState('flat');
+        await new Promise(r => setTimeout(r, 3000));
+        if (!isMounted) break;
+
+        // 3. Fluctuated (Robot/Wave animation)
+        setIdentityState('robot'); 
+        await new Promise(r => setTimeout(r, 3000));
+        if (!isMounted) break;
+
+        // 4. Flatten again before going back to working
+        setIdentityState('flat');
+        await new Promise(r => setTimeout(r, 3000));
+        if (!isMounted) break;
+      }
+    };
+
+    runAnimationCycle();
+
+    return () => { isMounted = false; };
   }, []);
 
   const handleNav = (newView: 'home' | 'experience' | 'projects' | 'about') => {
@@ -148,35 +174,89 @@ export default function App() {
   return (
     <div className="wrapper">
       <StarsCanvas />
+      {/* 新增的個人照片背景 - CSS handles the image path directly */}
+      <div 
+        id="my-profile-bg"
+        style={{
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          width: '60vh', 
+          height: '100vh',
+          zIndex: 0, 
+          
+          // 👇 這裡直接寫字串路徑，React 會自動去 public 資料夾找
+          backgroundImage: `
+            linear-gradient(
+              to right, 
+              #171a19 5%, 
+              rgba(23, 26, 25, 0.9) 30%, 
+              rgba(23, 26, 25, 0.4) 60%, 
+              rgba(23, 26, 25, 0) 100%
+            ), 
+            url('/images/profile.jpg') 
+          `,
+          // ⚠️ 注意：如果您放在 public/images 裡面，上面就要改成 url('/images/profile.jpg')
+          
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      ></div>
       
       <div className="container">
         
         {/* HOME VIEW */}
         <div className={`template color-yellow ${view === 'home' ? 'current' : ''}`} data-template="home">
-          {/* Hero Background Image (Watermark Effect) */}
-          <div className="home-bg" style={{backgroundImage: "url('/profile.jpg')"}}></div>
+          
+          <main className="flex flex-col justify-center">
+            
+            <div className="home-line-item group">
+               <div className="absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
+                  <GripVertical size={20} />
+               </div>
+               <span className="text-7xl md:text-7xl font-bold leading-tight"><mark>Data Engineer</mark></span>
+            </div>
 
-          <main>
-            <h1>
-              <span><mark>Data Engineer.</mark></span>
-            </h1>
-            <div className="p">
-              <span>Rooted in Animal and Brain Science.</span>
-              <span>{PROFILE.email.replace('mailto:', '')}</span>
-              <span>{PROFILE.phone}</span>
+            <div className="home-line-item group">
+               <div className="absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
+                  <GripVertical size={20} />
+               </div>
+              <span className="text-3xl md:text-4xl text-slate-300 whitespace-nowrap font-normal">Began From Animal and Brain Science</span>
+            </div>
+
+            <div className="home-line-item group">
+               <div className="absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
+                  <GripVertical size={20} />
+               </div>
+              <span className="text-slate-400 font-mono text-lg">{PROFILE.email.replace('mailto:', '')}</span>
+            </div>
+
+            <div className="home-line-item group">
+               <div className="absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
+                  <GripVertical size={20} />
+               </div>
+              <span className="text-slate-400 font-mono text-lg">{PROFILE.phone}</span>
             </div>
             
-            <div className="links">
-              <a className="link color-yellow" onClick={() => handleNav('experience')} title="View Experience">
-                View Experience
-              </a>
-              <a className="link color-green" onClick={() => handleNav('projects')} title="Side Project">
-                Side Project
-              </a>
-              <a className="link color-red" onClick={() => handleNav('about')} title="About Me">
-                About Me
-              </a>
+            <div className="home-line-item group">
+               <div className="absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
+                  <GripVertical size={20} />
+               </div>
+              <div className="links">
+                <a className="link color-yellow" onClick={() => handleNav('experience')} title="View Experience">
+                  View Experience
+                </a>
+                <a className="link color-green" onClick={() => handleNav('projects')} title="Side Project">
+                  Side Project
+                </a>
+                <a className="link color-red" onClick={() => handleNav('about')} title="About Me">
+                  About Me
+                </a>
+              </div>
             </div>
+
           </main>
           
           <footer>
@@ -194,8 +274,8 @@ export default function App() {
             <h1><span>Professional <mark>Experience</mark></span></h1>
             
             <ul className="experience-list">
-              {EXPERIENCE.map((exp, i) => (
-                <li key={exp.id} style={{animationDelay: `${0.1 * i}s`}}>
+              {EXPERIENCE.map((exp) => (
+                <li key={exp.id}>
                   <h3>{exp.role}</h3>
                   <h4>{exp.company} | {exp.period}</h4>
                   <ul style={{listStyle: 'disc', paddingLeft: '20px', color: '#aaa', fontSize: '13px', lineHeight: '1.6', marginBottom: '10px'}}>
@@ -222,8 +302,8 @@ export default function App() {
             <h1><span>Side <mark>Projects</mark></span></h1>
             
             <div className="projects-list">
-              {PROJECTS.map((proj, i) => (
-                <div key={proj.id} className="project-item" style={{animationDelay: `${0.1 * i}s`}}>
+              {PROJECTS.map((proj) => (
+                <div key={proj.id} className="project-item">
                   <h3>{proj.title}</h3>
                   <p>{proj.description}</p>
                   <div className="project-links">
@@ -264,7 +344,7 @@ export default function App() {
             <h1><span>About <mark>Me</mark></span></h1>
             
             {/* Education Section */}
-            <div style={{marginBottom: '40px', animation: 'lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both', animationDelay: '0.1s'}}>
+            <div style={{marginBottom: '40px'}}>
               <h2 style={{color: 'white', fontSize: '24px', marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px'}}>Education</h2>
               {EDUCATION.map((edu, i) => (
                 <div key={i} style={{marginBottom: '20px', color: '#aaa'}}>
@@ -276,7 +356,7 @@ export default function App() {
             </div>
 
             {/* Military Service */}
-            <div style={{marginBottom: '40px', animation: 'lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both', animationDelay: '0.2s'}}>
+            <div style={{marginBottom: '40px'}}>
               <h2 style={{color: 'white', fontSize: '24px', marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px'}}>Military Service</h2>
               {MILITARY_SERVICE.map((mil) => (
                 <div key={mil.id} style={{marginBottom: '20px'}}>
@@ -292,7 +372,7 @@ export default function App() {
             </div>
 
             {/* Club Experience */}
-            <div style={{marginBottom: '40px', animation: 'lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both', animationDelay: '0.3s'}}>
+            <div style={{marginBottom: '40px'}}>
               <h2 style={{color: 'white', fontSize: '24px', marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px'}}>Club Experience</h2>
               {CLUBS.map((club) => (
                 <div key={club.id} style={{marginBottom: '20px'}}>
@@ -308,7 +388,7 @@ export default function App() {
             </div>
             
             {/* Technical Skills Summary */}
-            <div style={{marginBottom: '40px', animation: 'lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both', animationDelay: '0.4s'}}>
+            <div style={{marginBottom: '40px'}}>
               <h2 style={{color: 'white', fontSize: '24px', marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px'}}>Key Skills</h2>
               <div className="skills-grid">
                 {SKILLS.map((cat, i) => (

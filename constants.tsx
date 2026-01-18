@@ -2,7 +2,7 @@ import { Profile, Experience, Project, Skill } from './types';
 
 export const PROFILE: Profile = {
   name: "Ching-Hsiang Chang",
-  title: "Data Engineer. Rooted in Animal and Brain Science.",
+  title: "Data Engineer. Began From Animal and Brain Science.",
   email: "lavouver96@gmail.com",
   phone: "(+886) 922 554 637",
   location: "Taipei City, Taiwan",
