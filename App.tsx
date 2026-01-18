@@ -154,7 +154,7 @@ export default function App() {
         {/* HOME VIEW */}
         <div className={`template color-yellow ${view === 'home' ? 'current' : ''}`} data-template="home">
           {/* Hero Background Image (Watermark Effect) */}
-          <div className="home-bg" style={{backgroundImage: "url('./profile.jpg')"}}></div>
+          <div className="home-bg" style={{backgroundImage: "url('/profile.jpg')"}}></div>
 
           <main>
             <h1>
@@ -264,7 +264,7 @@ export default function App() {
             <h1><span>About <mark>Me</mark></span></h1>
             
             {/* Education Section */}
-            <div style={{marginBottom: '40px', opacity: 0, animation: 'lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards', animationDelay: '0.1s'}}>
+            <div style={{marginBottom: '40px', animation: 'lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both', animationDelay: '0.1s'}}>
               <h2 style={{color: 'white', fontSize: '24px', marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px'}}>Education</h2>
               {EDUCATION.map((edu, i) => (
                 <div key={i} style={{marginBottom: '20px', color: '#aaa'}}>
@@ -276,7 +276,7 @@ export default function App() {
             </div>
 
             {/* Military Service */}
-            <div style={{marginBottom: '40px', opacity: 0, animation: 'lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards', animationDelay: '0.2s'}}>
+            <div style={{marginBottom: '40px', animation: 'lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both', animationDelay: '0.2s'}}>
               <h2 style={{color: 'white', fontSize: '24px', marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px'}}>Military Service</h2>
               {MILITARY_SERVICE.map((mil) => (
                 <div key={mil.id} style={{marginBottom: '20px'}}>
@@ -292,7 +292,7 @@ export default function App() {
             </div>
 
             {/* Club Experience */}
-            <div style={{marginBottom: '40px', opacity: 0, animation: 'lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards', animationDelay: '0.3s'}}>
+            <div style={{marginBottom: '40px', animation: 'lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both', animationDelay: '0.3s'}}>
               <h2 style={{color: 'white', fontSize: '24px', marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px'}}>Club Experience</h2>
               {CLUBS.map((club) => (
                 <div key={club.id} style={{marginBottom: '20px'}}>
@@ -308,7 +308,7 @@ export default function App() {
             </div>
             
             {/* Technical Skills Summary */}
-            <div style={{marginBottom: '40px', opacity: 0, animation: 'lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards', animationDelay: '0.4s'}}>
+            <div style={{marginBottom: '40px', animation: 'lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both', animationDelay: '0.4s'}}>
               <h2 style={{color: 'white', fontSize: '24px', marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px'}}>Key Skills</h2>
               <div className="skills-grid">
                 {SKILLS.map((cat, i) => (

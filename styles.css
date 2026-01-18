@@ -356,9 +356,9 @@ mark:before {
 /* Animations for text */
 .template h1 > span, .template .p > span, .template .links > a {
   display: inline-block;
-  opacity: 0;
-  transform: translateY(70px) rotate(5deg);
-  animation: lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  /* opacity: 0; REMOVED to prevent invisible content if animation fails */
+  /* transform: translateY(70px) rotate(5deg); REMOVED */
+  animation: lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both; /* Changed from forwards to both */
 }
 
 .template.current h1 > span:nth-child(1) { animation-delay: 0.1s; }
@@ -385,7 +385,7 @@ mark:before {
 .template h1 > * mark:before,
 .template .h1 > * mark:before {
   right: 100%;
-  animation: markAnimation 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0.35s forwards;
+  animation: markAnimation 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0.35s both;
 }
 @keyframes markAnimation {
   0% { right: 100%; }
@@ -403,8 +403,8 @@ ul.experience-list li {
   border-left: 2px solid #333;
   padding-left: 20px;
   position: relative;
-  opacity: 0;
-  animation: lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  /* opacity: 0; REMOVED */
+  animation: lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 ul.experience-list li:before {
   content: '';
@@ -443,8 +443,8 @@ ul.experience-list .tech-stack span {
   border: 1px solid rgba(255,255,255,0.1);
   padding: 25px;
   border-radius: 8px;
-  opacity: 0;
-  animation: lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  /* opacity: 0; REMOVED */
+  animation: lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 .project-item:hover {
@@ -486,8 +486,8 @@ ul.experience-list .tech-stack span {
   background: rgba(255,255,255,0.05);
   padding: 20px;
   border-radius: 8px;
-  opacity: 0;
-  animation: lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  /* opacity: 0; REMOVED */
+  animation: lineNum 0.7s cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 .skill-card h4 { color: #419d78; margin-top: 0; }
 .skill-card div span {
