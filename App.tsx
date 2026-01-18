@@ -199,7 +199,7 @@ export default function App() {
                   <div className="hidden lg:block absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
                     <GripVertical size={20} />
                   </div>
-                  <span className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight"><mark>Data Engineer</mark></span>
+                  <span className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight"><mark>Data</mark> <mark>Engineer</mark></span>
               </div>
               <div className="home-line-item group">
                   <div className="hidden lg:block absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
@@ -232,10 +232,10 @@ export default function App() {
             </div>
 
             {/* Right Side: Card */}
-            <div className="flex w-full lg:w-1/2 justify-center lg:justify-end items-center lg:h-full z-20 lg:pr-8 order-1 lg:order-2 mb-4 lg:mb-0">
+            <div className="flex w-full lg:w-1/2 justify-center lg:justify-end items-center lg:h-full z-20 lg:pr-8 order-1 lg:order-2 mb-10 lg:mb-0">
               <div className="relative w-full max-w-[360px] sm:max-w-[420px] group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-blue-500 to-teal-400 rounded-2xl blur-md opacity-30 group-hover:opacity-60 transition duration-1000"></div>
-                <div className="relative bg-[#1a1c20]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-6 lg:p-8 shadow-2xl flex flex-col items-center text-center gap-4 lg:gap-6">
+                <div className="relative bg-[#1a1c20]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-8 lg:p-10 shadow-2xl flex flex-col items-center text-center gap-4 lg:gap-6">
                   <div className="w-full flex justify-start">
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e]"></div>

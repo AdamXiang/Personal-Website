@@ -348,7 +348,7 @@ mark:before {
   width: 100%;
   overflow-y: auto;
   z-index: 2; /* Explicitly set z-index above canvas */
-  padding-bottom: 50px; /* Added padding to ensure content doesn't hit the very bottom */
+  padding-bottom: 70px; /* Increased from 50px */
 }
 @media (max-width: 599px) {
   .template main { 
