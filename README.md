@@ -193,24 +193,19 @@ const SYSTEM_INSTRUCTION = `You are a helpful AI assistant for...`;
 ## 📸 Screenshots
 
 ### Home View
-![Home View - Desktop](https://via.placeholder.com/800x500/171a19/e0a458?text=Home+View)
+![Home View - Desktop](https://drive.google.com/uc?export=view&id=1fDETB5lZyfim5obGTqIqOflo9YbL3z9c)
 
 *Interactive hero section with animated particles and profile card*
 
 ### Experience Timeline
-![Experience Section](https://via.placeholder.com/800x500/171a19/419d78?text=Experience+Timeline)
+![Experience Section](https://drive.google.com/uc?export=view&id=1MZximyEX5PmowafkGZ04lK6qsSBRNwYb)
 
 *Professional experience displayed in a clean timeline format*
 
 ### Projects Showcase
-![Projects Grid](https://via.placeholder.com/800x500/171a19/53a2be?text=Projects+Showcase)
+![Projects Grid](https://drive.google.com/uc?export=view&id=1L_CVkVMQFHtG8Q4K9jPP6J0MqeWSjUKc)
 
 *Side projects with technology tags and repository links*
-
-### AI Chat Assistant
-![AI Chat](https://via.placeholder.com/400x500/ffffff/000000?text=AI+Chat+Interface)
-
-*Interactive chatbot powered by Google Gemini*
 
 ---
 
@@ -290,7 +285,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-- Particle animation inspired by [yahiarefaiea-official-website-beta](https://github.com/yahiarefaiea/yahiarefaiea-official-website-beta)
+- Particle animation inspired by [Yahia Refaiea](https://codepen.io/yahiarefaiea)
 - Icons by [Lucide React](https://lucide.dev/)
 - AI capabilities powered by [Google Gemini](https://ai.google.dev/)
 - Design inspiration from modern portfolio trends
