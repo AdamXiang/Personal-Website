@@ -23,10 +23,11 @@ export const EXPERIENCE: Experience[] = [
     company: "DATARGET",
     period: "Nov. 2025 - Present",
     description: [
-      "Engineered High-Performance ETL Pipelines (99% Efficiency Gain).",
-      "Optimized ingestion of massive meteorological datasets.",
-      "Defined strategic roadmap for migrating data operations from Azure to Microsoft Fabric.",
-      "Developed Python-based HandlerFactory for automation."
+      "Spearheaded High-Performance ETL Innovation (99% Efficiency Gain): Identified performance bottlenecks and led the architectural transition from standard Pandas to Parallel + ClickHouse Local. This initiative successfully bypassed Python GIL limitations, reducing processing time from 40 minutes to under 1 minute per file.",
+      "Strategic Architecture & Workflow Orchestration: Aligned technical roadmaps with business scalability goals by designing the migration strategy from Azure to Microsoft Fabric. Collaborated with the data team to implement Airflow and dbt, enforcing code standards that improved maintainability.",
+      "Database Optimization & Process Automation: Enhanced engineering best practices by developing a Python-based HandlerFactory (OOP/ABC) for automated schema generation. Optimized system throughput by replacing standard SQL with MSSQL BCP, achieving a 30-80x increase in ingestion speeds.",
+      "Data Quality Resolution & Analytical Thinking: Conducted root cause analysis to diagnose critical geospatial precision errors (Lat/Lon rounding) and time-series logic conflicts. Ensured data reliability for forecasting models by recovering 25x more valid data points.",
+      "BI Infrastructure & Stakeholder Management: Facilitated leadership decision-making by conducting and presenting a technical trade-off analysis (Usability vs. Customization) for Apache Superset and Metabase. Deployed the optimal Dockerized solution to drive geospatial analytics adoption."
     ],
     technologies: ["Python", "ClickHouse", "Airflow", "dbt", "Azure", "Microsoft Fabric", "Docker"]
   },
@@ -37,7 +38,7 @@ export const EXPERIENCE: Experience[] = [
     period: "Jul. 2024 - Aug. 2024",
     description: [
       "Accelerated Go-to-Market decision-making by developing an automated Product Performance Dashboard in Tableau.",
-      "Optimized creative workflows by engineering a Smart Demand Application Form in Google Sheets."
+      "Collaborated with the design team to optimize creative workflows by engineering a 'Smart' Google Sheets form; eliminated manual entry overhead to focus resources on high-value tasks."
     ],
     technologies: ["Tableau", "Google Sheets API", "Data Automation"]
   },
@@ -47,8 +48,8 @@ export const EXPERIENCE: Experience[] = [
     company: "uppeta",
     period: "Apr. 2024 - Jun. 2024",
     description: [
-      "Led data analysis for 5+ client projects.",
-      "Engineered custom automation scripts using Google Apps Script (GAS) to streamline internal workflows."
+      "Consulted on 5+ client projects by translating complex user behavior data into actionable strategies; presented performance models in Google Sheets that drove improvements in user registration.",
+      "Spearheaded internal process automation by engineering Google Apps Scripts (GAS); resolved manual data bottlenecks and maximized team processing throughput."
     ],
     technologies: ["Google Apps Script", "Data Analysis", "Automation"]
   },
@@ -58,10 +59,14 @@ export const EXPERIENCE: Experience[] = [
     company: "CXG",
     period: "Jul. 2023 - Apr. 2024",
     description: [
-      "Reduced operational reporting time by 75% by engineering a real-time Quality & Customer Management dashboard using Power BI, Azure Synapse Analytics, and T-SQL.",
-      "Designed scalable Medallion Architecture."
+      "Partnered with Operations Managers to identify reporting inefficiencies and engineered a real-time Power BI/Azure Synapse solution, reducing reporting time by 75%.",
+      "Orchestrated automated ELT pipelines in Azure Data Factory by coordinating member updates; guaranteed data accuracy and eliminated manual intervention for stakeholders.",
+      "Modernized the BI infrastructure by migrating legacy Excel workflows to Metabase; translated business needs into optimized SQL transformations on Azure Synapse.",
+      "Architected and standardized a scalable Medallion Architecture (Bronze/Silver/Gold) to ensure data quality and establish a reliable single source of truth for Data Analysts.",
+      "Optimized operational efficiency by refining Power Query transformations and ELT loading strategies from Azure Data Lake, significantly improving dataset performance.",
+      "Ensured 100% data timeliness by orchestrating HTTP API ingestion pipelines in Azure Data Factory, enabling scheduled analytics refreshes."
     ],
-    technologies: ["Power BI", "Azure Synapse", "T-SQL", "Azure Data Factory", "Medallion Architecture"]
+    technologies: ["Power BI", "Azure Synapse", "T-SQL", "Azure Data Factory", "Medallion Architecture", "Excel", "Metabase"]
   },
   {
     id: "exp-5",
@@ -69,9 +74,9 @@ export const EXPERIENCE: Experience[] = [
     company: "Cathay Financial Holdings",
     period: "Feb. 2023 - Jul. 2023",
     description: [
-      "Designed a FHIR-compliant Database Architecture.",
-      "Pioneered GenAI-Driven Data Transformation using ChatGPT prompt workflows.",
-      "Developed an End-to-End Medical Chatbot."
+      "Bridged the gap between technical and medical compliance by designing a FHIR-standard ER schema; reduced inter-hospital data exchange latency by 75%.",
+      "Pioneered GenAI adoption by designing ChatGPT prompt workflows to automate XML-to-JSON conversion, accelerating legacy medical record transformation cycles.",
+      "Addressed patient resource accessibility gaps by developing an end-to-end medical LINEbot (Flask/MongoDB); integrated automated scraping pipelines to serve real-time information."
     ],
     technologies: ["FHIR", "GenAI", "Flask", "MongoDB", "Selenium", "Python"]
   }
@@ -115,8 +120,8 @@ export const CLUBS: Experience[] = [
     company: "National Taiwan University Data Analytics Club",
     period: "Sep. 2022 - Jun. 2023",
     description: [
-      "Collaborated with Shopee to optimize store expansion costs using web scraping and Google APIs.",
-      "Partnered with Gogoro to process over 80 million battery exchange records using Pandas and NumPy, utilized Geopandas to identify commercial hotspots, and built a Streamlit web app to visualize user riding habits."
+      "Demonstrated cross-functional collaboration by partnering with Shopee to optimize store expansion strategies, leveraging data-driven problem-solving through web scraping and Google APIs.",
+      "Translated complex data into actionable business insights by processing 80M+ Gogoro battery records; utilized Geopandas and built a Streamlit app to facilitate clear stakeholder communication and strategic decision-making."
     ]
   },
   {
@@ -125,8 +130,8 @@ export const CLUBS: Experience[] = [
     company: "National Tsing Hua University Management Consulting Club",
     period: "Sep. 2021 - Jun. 2022",
     description: [
-      "Leveraged biomedical knowledge to analyze a biotech startup's technical advantages.",
-      "Applied hypothesis-driven methods to identify customer pain points and optimized marketing strategies, successfully growing subscriptions by 300% (from 20 to 60) within one year."
+      "Applied critical thinking and cross-disciplinary adaptability by leveraging biomedical knowledge to evaluate a tech startup's competitive advantages and market positioning.",
+      "Showcased customer-centric problem-solving by utilizing hypothesis-driven methods to uncover user pain points, ultimately driving a strategic marketing initiative that achieved a 300% subscription growth within one year."
     ]
   },
   {
@@ -135,9 +140,9 @@ export const CLUBS: Experience[] = [
     company: "National Taiwan University  Star Rain Club",
     period: "Sep. 2020 - Feb. 2021",
     description: [
-      "Revamped recruitment strategies to achieve 300% member growth and 100% retention.",
-      "Secured 100k NTD in sponsorship by promoting club values.",
-      "Organized autism awareness campaigns for over 120 elementary students and social events for 30+ autistic teenagers."
+      "Exercised transformational leadership and strategic planning to revamp recruitment initiatives, achieving 300% member growth and maintaining 100% team retention.",
+      "Utilized persuasive communication and negotiation skills to align corporate sponsors with club values, successfully securing 100k NTD in funding.",
+      "Demonstrated empathy and end-to-end project management by orchestrating autism awareness campaigns for 120+ students and inclusive social events for 30+ teenagers."
     ]
   }
 ];
@@ -149,37 +154,93 @@ export const PROJECTS: Project[] = [
     description: "High-performance backend service engineered with FastAPI to handle real-time data feeds.",
     technologies: ["FastAPI", "Python", "AsyncIO"],
     repoUrl: "https://github.com/AdamXiang/FastAPI_with_Feed"
+
+  },
+  {
+    id: "proj-1",
+    title: "FastAPI with Feed",
+    description: "High-performance backend service engineered with FastAPI to handle real-time data feeds.",
+    technologies: ["FastAPI", "Python", "AsyncIO"],
+    repoUrl: "https://github.com/AdamXiang/FastAPI_with_Feed"
+
   },
   {
     id: "proj-2",
+    title: "FastAPI with Feed",
+    description: "High-performance backend service engineered with FastAPI to handle real-time data feeds.",
+    technologies: ["FastAPI", "Python", "AsyncIO"],
+    repoUrl: "https://github.com/AdamXiang/FastAPI_with_Feed"
+
+  },
+  {
+    id: "proj-3",
+    title: "FastAPI with Feed",
+    description: "High-performance backend service engineered with FastAPI to handle real-time data feeds.",
+    technologies: ["FastAPI", "Python", "AsyncIO"],
+    repoUrl: "https://github.com/AdamXiang/FastAPI_with_Feed"
+
+  },
+  {
+    id: "proj-4",
+    title: "FastAPI with Feed",
+    description: "High-performance backend service engineered with FastAPI to handle real-time data feeds.",
+    technologies: ["FastAPI", "Python", "AsyncIO"],
+    repoUrl: "https://github.com/AdamXiang/FastAPI_with_Feed"
+
+  },
+  {
+    id: "proj-5",
+    title: "FastAPI with Feed",
+    description: "High-performance backend service engineered with FastAPI to handle real-time data feeds.",
+    technologies: ["FastAPI", "Python", "AsyncIO"],
+    repoUrl: "https://github.com/AdamXiang/FastAPI_with_Feed"
+
+  },
+  {
+    id: "proj-6",
+    title: "FastAPI with Feed",
+    description: "Production-ready data lakehouse: AWS S3 → Snowflake → Star Schema with dbt. Implements Bronze-Silver-Gold medallion architecture with incremental loads, SCD Type 2 dimensions, metadata-driven pipelines, and ephemeral models. Airbnb rental data case study.",
+    technologies: ["dbt", "Python", "Snowflak","S3", "Data Modelling"],
+    repoUrl: "https://github.com/AdamXiang/Star-Schema-Build-up-from-S3-to-Snowflake-with-dbt"
+
+  },
+  {
+    id: "proj-7",
+    title: "FastAPI with Feed",
+    description: "High-performance backend service engineered with FastAPI to handle real-time data feeds.",
+    technologies: ["FastAPI", "Python", "AsyncIO"],
+    repoUrl: "https://github.com/AdamXiang/FastAPI_with_Feed"
+  },
+  {
+    id: "proj-8",
     title: "AirBnB Project with dbt & Snowflake",
     description: "End-to-end data pipeline transforming raw AirBnB data into analytical insights using dbt and Snowflake.",
     technologies: ["dbt", "Snowflake", "SQL", "Data Modeling"],
     repoUrl: "https://github.com/AdamXiang/AirBnB-Project-with-dbt-and-Snowflake"
   },
   {
-    id: "proj-3",
+    id: "proj-9",
     title: "Realtime Logs Processing",
     description: "Scalable architecture for processing and analyzing application logs in real-time.",
     technologies: ["Kafka", "Spark Streaming", "Python"],
     repoUrl: "https://github.com/AdamXiang/Realtime-Logs-Processing"
   },
   {
-    id: "proj-4",
+    id: "proj-10",
     title: "Databricks with Lakeflow & Medallion",
     description: "Implementation of the Lakehouse architecture using Databricks and Lakeflow.",
     technologies: ["Databricks", "Spark", "Delta Lake", "Medallion Architecture"],
     repoUrl: "https://github.com/AdamXiang/databricks_with_Lakeflow-and-Medallion"
   },
   {
-    id: "proj-5",
+    id: "proj-11",
     title: "dbt with Medallion Architecture",
     description: "Structured data transformation layer implementing Bronze, Silver, and Gold layers using dbt.",
     technologies: ["dbt", "SQL", "Data Warehousing"],
     repoUrl: "https://github.com/AdamXiang/dbt-with-medallion-architecture"
   },
   {
-    id: "proj-6",
+    id: "proj-12",
     title: "Uber Project with dbt",
     description: "Analytics engineering project modeling Uber trip data for business intelligence reporting.",
     technologies: ["dbt", "Google BigQuery", "Looker Studio"],
