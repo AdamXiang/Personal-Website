@@ -44,11 +44,18 @@ export const AIChat: React.FC = () => {
   }, [messages]);
 
   const handleSend = async () => {
-    if (!inputValue.trim() || !process.env.API_KEY) return;
+    if (!inputValue.trim()) return;
 
     const userMsg = inputValue;
     setInputValue('');
     setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
+
+    // Check if API key is missing at runtime and notify user
+    if (!process.env.API_KEY) {
+      setMessages(prev => [...prev, { role: 'model', text: "⚠️ System Error: API_KEY is missing. Please add the API_KEY environment variable in your Vercel project settings and redeploy." }]);
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -77,10 +84,11 @@ export const AIChat: React.FC = () => {
     }
   };
 
-  if (!process.env.API_KEY) return null;
+  // Removed the early return to ensure the UI is always visible
+  // if (!process.env.API_KEY) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-6 right-6 z-[110] flex flex-col items-end">
       {/* Chat Window */}
       {isOpen && (
         <div className="mb-4 w-80 md:w-96 bg-white border border-gray-200 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fade-in-up" style={{ height: '500px' }}>
