@@ -150,55 +150,47 @@ export const CLUBS: Experience[] = [
 export const PROJECTS: Project[] = [
   {
     id: "proj-1",
-    title: "FastAPI with Feed",
-    description: "High-performance backend service engineered with FastAPI to handle real-time data feeds.",
-    technologies: ["FastAPI", "Python", "AsyncIO"],
-    repoUrl: "https://github.com/AdamXiang/FastAPI_with_Feed"
-
-  },
-  {
-    id: "proj-1",
-    title: "FastAPI with Feed",
-    description: "High-performance backend service engineered with FastAPI to handle real-time data feeds.",
-    technologies: ["FastAPI", "Python", "AsyncIO"],
-    repoUrl: "https://github.com/AdamXiang/FastAPI_with_Feed"
+    title: "Real-Time E-Commerce Transaction Processing with Apache Flink",
+    description: "Production-ready real-time e-commerce transaction processor with Apache Flink: Event-driven streaming architecture with <100ms latency, exactly-once semantics via dual-layer consistency (checkpoint + idempotent sinks). Features stateful aggregations (keyBy/reduce), RocksDB state backend, and dual-sink persistence to PostgreSQL + Elasticsearch. Kafka source integration.",
+    technologies: ["Flink", "Kafka", "ElasticSearch", "Python", "Java"],
+    repoUrl: "https://github.com/AdamXiang/Realtime-Streaming-with-Apache-Flink"
 
   },
   {
     id: "proj-2",
-    title: "FastAPI with Feed",
-    description: "High-performance backend service engineered with FastAPI to handle real-time data feeds.",
-    technologies: ["FastAPI", "Python", "AsyncIO"],
-    repoUrl: "https://github.com/AdamXiang/FastAPI_with_Feed"
+    title: "Real-Time Stock Market Data Streaming with Apache Kafka",
+    description: "Production-ready real-time streaming pipeline: CSV stock market data (104K records) → Apache Kafka → AWS S3 using Python. Features message replayability, flow control (1 msg/sec), fault-tolerant offset management, and single-node EC2 deployment with Zookeeper coordination. Demonstrates enterprise event streaming patterns with production roadmap.",
+    technologies: ["Kafka", "AWS Athena", "S3", "AWS Glue Crawler", "AWS Glue"],
+    repoUrl: "https://github.com/AdamXiang/Stock-Market-Real-Time-Data-Analysis-Project"
 
   },
   {
     id: "proj-3",
-    title: "FastAPI with Feed",
-    description: "High-performance backend service engineered with FastAPI to handle real-time data feeds.",
-    technologies: ["FastAPI", "Python", "AsyncIO"],
-    repoUrl: "https://github.com/AdamXiang/FastAPI_with_Feed"
+    title: "AWS Realtime Unstructured Data Streaming Pipeline",
+    description: "Production-grade Spark Structured Streaming pipeline for unstructured data: Extracts structured insights from text/JSON via regex-based Python UDFs. Features fault-tolerant S3 integration, exactly-once semantics with checkpointing, Parquet columnar output, and automated schema discovery via AWS Glue Crawler for Athena queryability. Dockerized 4-worker cluster.",
+    technologies: ["Unstructured Data", "Python", "Spark", "S3", "AWS Glue Crawler"],
+    repoUrl: "https://github.com/AdamXiang/End-to-End-Realtime-Streaming-with-Unstructured-Data"
 
   },
   {
     id: "proj-4",
-    title: "FastAPI with Feed",
-    description: "High-performance backend service engineered with FastAPI to handle real-time data feeds.",
-    technologies: ["FastAPI", "Python", "AsyncIO"],
-    repoUrl: "https://github.com/AdamXiang/FastAPI_with_Feed"
+    title: "FMCG Data Engineering Project with Databricks",
+    description: "Production-ready FMCG data pipeline on Databricks: Implements parent-subsidiary integration with Bronze-Silver-Gold medallion architecture. Features incremental ETL, multi-grain aggregation (daily→monthly), Delta Lake MERGE operations, data quality management, and automated orchestration via Databricks Jobs. AWS S3 to Delta Lake.",
+    technologies: ["Databricks", "Python", "S3", "PySpark"],
+    repoUrl: "https://github.com/AdamXiang/FMCG-Domain-Data-Engineering-Project-with-Databricks"
 
   },
   {
     id: "proj-5",
-    title: "FastAPI with Feed",
-    description: "High-performance backend service engineered with FastAPI to handle real-time data feeds.",
-    technologies: ["FastAPI", "Python", "AsyncIO"],
-    repoUrl: "https://github.com/AdamXiang/FastAPI_with_Feed"
+    title: "Data Transformation Pipeline with dbt, Snowflake & Airflow",
+    description: "Production-ready ELT pipeline orchestrating dbt transformations on Snowflake with Apache Airflow & Astronomer Cosmos. Features layered architecture (Staging → Intermediate → Marts), automated testing, custom macros, and containerized deployment. TPC-H benchmark data case study.",
+    technologies: ["dbt", "Python", "Snowflake", "Airflow", "Data Engineering"], 
+    repoUrl: "https://github.com/AdamXiang/Transformation-with-dbt-snowflake-airflow"
 
   },
   {
     id: "proj-6",
-    title: "FastAPI with Feed",
+    title: "Building a Modern Data Lakehouse: From AWS S3 to Snowflake with dbt",
     description: "Production-ready data lakehouse: AWS S3 → Snowflake → Star Schema with dbt. Implements Bronze-Silver-Gold medallion architecture with incremental loads, SCD Type 2 dimensions, metadata-driven pipelines, and ephemeral models. Airbnb rental data case study.",
     technologies: ["dbt", "Python", "Snowflak","S3", "Data Modelling"],
     repoUrl: "https://github.com/AdamXiang/Star-Schema-Build-up-from-S3-to-Snowflake-with-dbt"
