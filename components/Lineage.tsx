@@ -9,9 +9,9 @@ export function Lineage() {
   const stage = LINEAGE[active];
 
   return (
-    <figure className="lineage" aria-label={t(UI.hero.lineageTitle)}>
-      <figcaption className="lineage-caption">{t(UI.hero.lineageTitle)}</figcaption>
-      <div className="lineage-track" role="tablist" aria-label={t(UI.hero.lineageHint)}>
+    <figure className="lineage" aria-label={t(UI.lineage.title)}>
+      <figcaption className="lineage-caption">{t(UI.lineage.title)}</figcaption>
+      <div className="lineage-track" role="tablist" aria-label={t(UI.lineage.hint)}>
         <span className="lineage-pulse" aria-hidden="true" />
         {LINEAGE.map((s, i) => (
           <button
@@ -39,7 +39,7 @@ export function Lineage() {
         <p className="stage-place">{t(stage.place)}</p>
         <p>{t(stage.kept)}</p>
       </div>
-      <p className="lineage-hint">{t(UI.hero.lineageHint)}</p>
+      <p className="lineage-hint">{t(UI.lineage.hint)}</p>
     </figure>
   );
 }

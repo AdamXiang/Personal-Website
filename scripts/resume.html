@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <title>Ching-Hsiang (Adam) Chang - Résumé</title>
 <style>
-  @page { size: A4; margin: 8mm 12mm; }
+  @page { size: A4; margin: 7mm 12mm; }
   * { box-sizing: border-box; }
-  body { margin: 0; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 8.2pt; line-height: 1.3; color: #11241f; }
+  body { margin: 0; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 8.1pt; line-height: 1.28; color: #11241f; }
   h1 { font-size: 21pt; margin: 0; letter-spacing: -0.02em; }
   .title { font-size: 10.5pt; font-weight: 600; color: #1d4b40; margin: 2pt 0 5pt; }
   .contact { display: flex; flex-wrap: wrap; gap: 2pt 12pt; font-size: 8.4pt; color: #3c4d47; }
@@ -39,9 +39,16 @@
   </p>
 
   <h2>Summary</h2>
-  <p>Data engineer with hands-on experience across finance, market research and consumer hardware. I build automated pipelines, medallion data models and dashboards with Python, SQL, Databricks, dbt and Azure. Recent results: a 40-minute ETL job brought under 1 minute per file, 30&ndash;80&times; faster database ingestion, and reporting time cut by 75%. Background in brain science research; currently building and evaluating AI agents with LangGraph.</p>
+  <p>Data engineer at Cathay Life Insurance with hands-on experience across insurance, consulting, market research and consumer hardware. I build automated pipelines, medallion data models and dashboards with Python, SQL, dbt, Databricks and Azure. Recent results: a DataStage-to-dbt migration that cut deployment and maintenance time by over 50%, a 40-minute ETL job brought under 1 minute per file, and 30&ndash;80&times; faster database ingestion.</p>
 
   <h2>Experience</h2>
+  <div class="job">
+    <div class="row"><strong>Data Engineer, <span class="org" style="white-space:normal">Cathay Life Insurance</span></strong><span>May 2026 &ndash; Present</span></div>
+    <ul>
+      <li>Designed scalable ETL pipelines with IBM DataStage on a medallion architecture, implementing change data capture and SCD Type 2; refactored legacy workflows for a 30% gain in overall run efficiency.</li>
+      <li>Drove the migration of pipelines from DataStage to dbt, simplifying the system and adding version control, automated testing and data lineage, which cut deployment and maintenance time by more than 50%.</li>
+    </ul>
+  </div>
   <div class="job">
     <div class="row"><strong>Data Engineer, <span class="org" style="white-space:normal">DATARGET</span></strong><span>Nov 2025 &ndash; Apr 2026</span></div>
     <ul>
@@ -55,15 +62,13 @@
   <div class="job">
     <div class="row"><strong>Go-to-Market Intern, <span class="org" style="white-space:normal">Logitech</span></strong><span>Jul 2024 &ndash; Aug 2024</span></div>
     <ul>
-      <li>Built an automated Tableau dashboard giving stakeholders real-time visibility into product metrics for go-to-market decisions.</li>
-      <li>Engineered a smart Google Sheets form with the design team that eliminated manual entry in the creative workflow.</li>
+      <li>Built an automated Tableau dashboard for real-time product metrics, and a smart Google Sheets form that removed manual entry from the design workflow.</li>
     </ul>
   </div>
   <div class="job">
     <div class="row"><strong>Data Analyst Intern, <span class="org" style="white-space:normal">uppeta</span></strong><span>Apr 2024 &ndash; Jun 2024</span></div>
     <ul>
-      <li>Consulted on 5+ client projects, turning user behaviour data into strategies that improved user registration.</li>
-      <li>Automated internal data processing with Google Apps Script, removing manual bottlenecks.</li>
+      <li>Consulted on 5+ client projects to improve user registration, and automated internal data processing with Google Apps Script.</li>
     </ul>
   </div>
   <div class="job">
@@ -88,15 +93,13 @@
     <li><strong>AdmGPT</strong>: self-hosted ChatGPT-style assistant on Claude and LangGraph with streaming chat, RAG over uploaded documents, web search and long-term memory.</li>
     <li><strong>AI Agent Evaluation</strong>: end-to-end evaluation of a tool-using refund agent with DeepEval across answer, tool-call and trace-level metrics.</li>
     <li><strong>Banking CDC pipeline</strong>: PostgreSQL &rarr; Debezium/Kafka &rarr; MinIO &rarr; Snowflake with SCD Type 2 marts, orchestrated by Airflow and dbt.</li>
-    <li><strong>Real-time e-commerce processing with Flink</strong>: sub-100 ms event processing with exactly-once semantics and dual sinks to PostgreSQL and Elasticsearch.</li>
-    <li><strong>Weather analytics on Apache Iceberg</strong>: Spark medallion pipeline handling corrections, late events and duplicates with idempotent MERGE INTO.</li>
     <li><strong>Kitchen Clash</strong> (kitchen-clash.onrender.com): browser pickleball game with online multiplayer and voice chat.</li>
   </ul>
 
   <h2>Skills</h2>
   <dl class="skills">
     <dt>Languages</dt><dd>Python, SQL, PySpark</dd>
-    <dt>Data engineering</dt><dd>Apache Airflow, dbt, Azure Data Factory, Kafka, Spark, Flink, Delta Live Tables, medallion architecture, CDC</dd>
+    <dt>Data engineering</dt><dd>dbt, Apache Airflow, IBM DataStage, Azure Data Factory, Kafka, Spark, Flink, Delta Live Tables, medallion architecture, CDC</dd>
     <dt>Platforms</dt><dd>Databricks, Azure Synapse, Microsoft Fabric, Snowflake, ClickHouse, SQL Server, MongoDB, Docker</dd>
     <dt>Analytics</dt><dd>Power BI, Tableau, Metabase, Apache Superset, Google Sheets, Excel</dd>
     <dt>AI engineering</dt><dd>LangGraph, LangChain, RAG, Model Context Protocol, DeepEval</dd>

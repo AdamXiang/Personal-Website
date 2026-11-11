@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { ArrowDown, Check, Copy, Download, Github, Instagram, Linkedin, Mail, PenLine } from 'lucide-react';
+import { Check, Copy, Download, Github, Instagram, Linkedin, Mail, PenLine } from 'lucide-react';
 import { ABOUT, CERTS, CLUBS, EDUCATION, EXPERIENCE, PROFILE, SKILLS, UI } from './data/content';
 import { LangProvider, useLang } from './lang';
 import { Lineage } from './components/Lineage';
+import { Hero } from './components/Hero';
 import { Projects } from './components/Projects';
 import { Journey } from './components/Journey';
 import { AIChat } from './components/AIChat';
@@ -19,8 +20,8 @@ function Nav() {
           Adam Chang
         </a>
         <nav aria-label={lang === 'zh' ? '主選單' : 'Main'}>
-          <a href="#work">{t(UI.nav.work)}</a>
           <a href="#projects">{t(UI.nav.projects)}</a>
+          <a href="#work">{t(UI.nav.work)}</a>
           <a href="#journey">{t(UI.nav.journey)}</a>
           <a href="#about">{t(UI.nav.about)}</a>
         </nav>
@@ -32,45 +33,13 @@ function Nav() {
           >
             {lang === 'en' ? '中文' : 'EN'}
           </button>
-          <a className="btn btn-solid btn-small" href={PROFILE.resumeUrl} download>
+          <a className="btn btn-gold btn-small" href={PROFILE.resumeUrl} download>
             <Download size={16} aria-hidden="true" />
             <span>{t(UI.nav.resume)}</span>
           </a>
         </div>
       </div>
     </header>
-  );
-}
-
-function Hero() {
-  const { t } = useLang();
-  return (
-    <section id="top" className="hero">
-      <div className="wrap hero-grid">
-        <div className="hero-copy">
-          <p className="hero-role">
-            {PROFILE.name} ({PROFILE.nickname}) <span>/ {t(UI.hero.role)}</span>
-          </p>
-          <h1>{t(UI.hero.headline)}</h1>
-          <p className="hero-sub">{t(UI.hero.sub)}</p>
-          <p className="status">
-            <span className="status-dot" aria-hidden="true" />
-            {t(UI.hero.status)}
-          </p>
-          <div className="hero-actions">
-            <a className="btn btn-solid" href={PROFILE.resumeUrl} download>
-              <Download size={18} aria-hidden="true" />
-              {t(UI.nav.resume)}
-            </a>
-            <a className="btn btn-ghost" href="#projects">
-              {t(UI.hero.seeProjects)}
-              <ArrowDown size={18} aria-hidden="true" />
-            </a>
-          </div>
-        </div>
-        <Lineage />
-      </div>
-    </section>
   );
 }
 
@@ -87,7 +56,10 @@ function Work() {
             const open = openId === job.id;
             return (
               <li key={job.id} className="job">
-                <p className="job-period">{job.period}</p>
+                <p className="job-period">
+                  {job.period}
+                  {job.current && <span className="job-now">{t(UI.work.now)}</span>}
+                </p>
                 <div className="job-body">
                   <h3>
                     {t(job.role)} <span className="job-at">{t(job.company)}</span>
@@ -164,6 +136,8 @@ function About() {
             </ul>
           </div>
         </div>
+
+        <Lineage />
 
         <h3 className="sub">{t(UI.about.skills)}</h3>
         <dl className="skills">
@@ -271,8 +245,8 @@ export default function App() {
       <Nav />
       <main id="main">
         <Hero />
-        <Work />
         <Projects />
+        <Work />
         <Journey />
         <About />
       </main>
