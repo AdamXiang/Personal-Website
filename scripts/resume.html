@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Ching-Hsiang (Adam) Chang - Résumé</title>
+<style>
+  @page { size: A4; margin: 8mm 12mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 8.2pt; line-height: 1.3; color: #11241f; }
+  h1 { font-size: 21pt; margin: 0; letter-spacing: -0.02em; }
+  .title { font-size: 10.5pt; font-weight: 600; color: #1d4b40; margin: 2pt 0 5pt; }
+  .contact { display: flex; flex-wrap: wrap; gap: 2pt 12pt; font-size: 8.4pt; color: #3c4d47; }
+  .contact a { color: inherit; text-decoration: none; }
+  h2 { font-size: 9.3pt; margin: 6pt 0 3pt; padding-bottom: 2pt; border-bottom: 1.2pt solid #11241f; letter-spacing: 0.01em; }
+  p { margin: 0; }
+  .job { margin-bottom: 4pt; break-inside: avoid; }
+  .row { display: flex; justify-content: space-between; gap: 10pt; align-items: baseline; }
+  .row strong { font-size: 9.3pt; }
+  .row span { color: #51625c; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .org { color: #1d4b40; font-weight: 600; }
+  ul { margin: 2pt 0 0; padding-left: 11pt; }
+  li { margin-bottom: 1.2pt; }
+  .skills { display: grid; grid-template-columns: 88pt 1fr; gap: 1.5pt 8pt; }
+  .skills dt { font-weight: 600; }
+  .skills dd { margin: 0; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18pt; }
+</style>
+</head>
+<body>
+  <h1>Ching-Hsiang (Adam) Chang</h1>
+  <p class="title">Data Engineer</p>
+  <p class="contact">
+    <span>Taipei, Taiwan</span>
+    <a href="mailto:lavouver96@gmail.com">lavouver96@gmail.com</a>
+    <span>(+886) 922 554 637</span>
+    <a href="https://www.linkedin.com/in/ching-hsiang-chang-782281217/">linkedin.com/in/ching-hsiang-chang-782281217</a>
+    <a href="https://github.com/AdamXiang">github.com/AdamXiang</a>
+    <a href="https://adam-website-tau.vercel.app">adam-website-tau.vercel.app</a>
+  </p>
+
+  <h2>Summary</h2>
+  <p>Data engineer with hands-on experience across finance, market research and consumer hardware. I build automated pipelines, medallion data models and dashboards with Python, SQL, Databricks, dbt and Azure. Recent results: a 40-minute ETL job brought under 1 minute per file, 30&ndash;80&times; faster database ingestion, and reporting time cut by 75%. Background in brain science research; currently building and evaluating AI agents with LangGraph.</p>
+
+  <h2>Experience</h2>
+  <div class="job">
+    <div class="row"><strong>Data Engineer, <span class="org" style="white-space:normal">DATARGET</span></strong><span>Nov 2025 &ndash; Apr 2026</span></div>
+    <ul>
+      <li>Led the move from Pandas to parallel processing with ClickHouse Local, bypassing the Python GIL and cutting ETL time from 40 minutes to under 1 minute per file (99% faster).</li>
+      <li>Replaced standard SQL inserts with MSSQL BCP for 30&ndash;80&times; faster ingestion; built a Python HandlerFactory (OOP, abstract base classes) for automated schema generation.</li>
+      <li>Designed the migration strategy from Azure to Microsoft Fabric and introduced Airflow and dbt with shared code standards.</li>
+      <li>Diagnosed geospatial precision errors (latitude/longitude rounding) and time-series logic conflicts, recovering 25&times; more valid data points for forecasting models.</li>
+      <li>Presented a Superset vs. Metabase trade-off analysis to leadership and deployed the chosen tool in Docker for geospatial analytics.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="row"><strong>Go-to-Market Intern, <span class="org" style="white-space:normal">Logitech</span></strong><span>Jul 2024 &ndash; Aug 2024</span></div>
+    <ul>
+      <li>Built an automated Tableau dashboard giving stakeholders real-time visibility into product metrics for go-to-market decisions.</li>
+      <li>Engineered a smart Google Sheets form with the design team that eliminated manual entry in the creative workflow.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="row"><strong>Data Analyst Intern, <span class="org" style="white-space:normal">uppeta</span></strong><span>Apr 2024 &ndash; Jun 2024</span></div>
+    <ul>
+      <li>Consulted on 5+ client projects, turning user behaviour data into strategies that improved user registration.</li>
+      <li>Automated internal data processing with Google Apps Script, removing manual bottlenecks.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="row"><strong>Data Engineer Intern, <span class="org" style="white-space:normal">CXG</span></strong><span>Jul 2023 &ndash; Apr 2024</span></div>
+    <ul>
+      <li>Engineered a real-time Power BI and Azure Synapse reporting solution with operations managers, reducing reporting time by 75%.</li>
+      <li>Architected and standardised a medallion architecture (bronze, silver, gold) as the single source of truth for analysts.</li>
+      <li>Orchestrated ELT and HTTP API ingestion pipelines in Azure Data Factory, ensuring 100% on-time scheduled refreshes.</li>
+      <li>Migrated legacy Excel workflows to Metabase with optimised SQL transformations on Azure Synapse.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="row"><strong>Data Analyst Intern, <span class="org" style="white-space:normal">Cathay Financial Holdings</span></strong><span>Feb 2023 &ndash; Jul 2023</span></div>
+    <ul>
+      <li>Designed a FHIR-standard ER schema that reduced inter-hospital data exchange latency by 75%.</li>
+      <li>Built an end-to-end medical LINE bot (Flask, MongoDB) with automated scraping pipelines; designed ChatGPT prompt workflows to automate XML-to-JSON conversion of legacy records.</li>
+    </ul>
+  </div>
+
+  <h2>Selected projects <span style="font-weight:400;color:#51625c">&nbsp;github.com/AdamXiang</span></h2>
+  <ul>
+    <li><strong>AdmGPT</strong>: self-hosted ChatGPT-style assistant on Claude and LangGraph with streaming chat, RAG over uploaded documents, web search and long-term memory.</li>
+    <li><strong>AI Agent Evaluation</strong>: end-to-end evaluation of a tool-using refund agent with DeepEval across answer, tool-call and trace-level metrics.</li>
+    <li><strong>Banking CDC pipeline</strong>: PostgreSQL &rarr; Debezium/Kafka &rarr; MinIO &rarr; Snowflake with SCD Type 2 marts, orchestrated by Airflow and dbt.</li>
+    <li><strong>Real-time e-commerce processing with Flink</strong>: sub-100 ms event processing with exactly-once semantics and dual sinks to PostgreSQL and Elasticsearch.</li>
+    <li><strong>Weather analytics on Apache Iceberg</strong>: Spark medallion pipeline handling corrections, late events and duplicates with idempotent MERGE INTO.</li>
+    <li><strong>Kitchen Clash</strong> (kitchen-clash.onrender.com): browser pickleball game with online multiplayer and voice chat.</li>
+  </ul>
+
+  <h2>Skills</h2>
+  <dl class="skills">
+    <dt>Languages</dt><dd>Python, SQL, PySpark</dd>
+    <dt>Data engineering</dt><dd>Apache Airflow, dbt, Azure Data Factory, Kafka, Spark, Flink, Delta Live Tables, medallion architecture, CDC</dd>
+    <dt>Platforms</dt><dd>Databricks, Azure Synapse, Microsoft Fabric, Snowflake, ClickHouse, SQL Server, MongoDB, Docker</dd>
+    <dt>Analytics</dt><dd>Power BI, Tableau, Metabase, Apache Superset, Google Sheets, Excel</dd>
+    <dt>AI engineering</dt><dd>LangGraph, LangChain, RAG, Model Context Protocol, DeepEval</dd>
+  </dl>
+
+  <div class="two">
+    <div>
+      <h2>Education</h2>
+      <div class="row"><strong>M.S., Brain Science</strong><span>2021 &ndash; 2024</span></div>
+      <p>National Yang Ming Chiao Tung University</p>
+      <div class="row" style="margin-top:3pt"><strong>B.S., Animal Science</strong><span>2017 &ndash; 2021</span></div>
+      <p>National Taiwan University</p>
+    </div>
+    <div>
+      <h2>Certification and service</h2>
+      <p><strong>Databricks Certified Data Engineer Associate</strong></p>
+      <p style="margin-top:3pt"><strong>Diplomatic Alternative Service</strong>, Taiwan Technical Mission in Eswatini, Nov 2024 &ndash; Jul 2025. Supported a national pig industry improvement project.</p>
+    </div>
+  </div>
+</body>
+</html>

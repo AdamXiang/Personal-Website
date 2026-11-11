@@ -1,413 +1,283 @@
-import { useEffect, useRef, useState } from 'react';
-import { PROFILE, EXPERIENCE, EDUCATION, SKILLS, PROJECTS, MILITARY_SERVICE, CLUBS } from './constants';
+import { useState } from 'react';
+import { ArrowDown, Check, Copy, Download, Github, Instagram, Linkedin, Mail, PenLine } from 'lucide-react';
+import { ABOUT, CERTS, CLUBS, EDUCATION, EXPERIENCE, PROFILE, SKILLS, UI } from './data/content';
+import { LangProvider, useLang } from './lang';
+import { Lineage } from './components/Lineage';
+import { Projects } from './components/Projects';
+import { Journey } from './components/Journey';
 import { AIChat } from './components/AIChat';
-import { GripVertical } from 'lucide-react';
 
-// --- Stars Animation Component (獨立定義，放在 App 外面) ---
-const StarsCanvas = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    
-    const setSize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-    };
-    setSize();
-
-    const circles: any[] = [];
-    const colorArray = ['#4c1a22', '#4c1a23', '#5d6268', '#1f2e37', '#474848', '#542619', '#ead8cf', '#4c241f', '#d6b9b1', '#964a47'];
-
-    class Circle {
-      x: number;
-      y: number;
-      dx: number;
-      dy: number;
-      radius: number;
-      minRadius: number;
-      color: string;
-
-      constructor(x: number, y: number, dx: number, dy: number, radius: number, color: string) {
-        this.x = x;
-        this.y = y;
-        this.dx = dx;
-        this.dy = dy;
-        this.radius = radius;
-        this.minRadius = radius;
-        this.color = color;
-      }
-
-      draw() {
-        if (!ctx) return;
-        const drawRadius = Math.max(0, this.radius);
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, drawRadius, 0, Math.PI * 2, false);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-      }
-
-      update(mouse: { x: number; y: number }) {
-        if (this.x + this.radius > width || this.x - this.radius < 0) this.dx = -this.dx;
-        if (this.y + this.radius > height || this.y - this.radius < 0) this.dy = -this.dy;
-
-        this.x += this.dx;
-        this.y += this.dy;
-
-        const mouseDist = 50;
-        if (mouse.x - this.x < mouseDist && mouse.x - this.x > -mouseDist && 
-            mouse.y - this.y < mouseDist && mouse.y - this.y > -mouseDist) {
-          if (this.radius < 1.5) this.radius += 1;
-        } else if (this.radius > this.minRadius) {
-          this.radius -= 1;
-        }
-
-        this.draw();
-      }
-    }
-
-    const init = () => {
-      circles.length = 0;
-      for (let i = 0; i < 800; i++) {
-        const radius = Math.random() * 1.5;
-        const x = Math.random() * (width - radius * 2) + radius;
-        const y = Math.random() * (height - radius * 2) + radius;
-        const dx = (Math.random() - 0.5) * 0.5;
-        const dy = (Math.random() - 0.5) * 0.5;
-        const color = colorArray[Math.floor(Math.random() * colorArray.length)];
-        circles.push(new Circle(x, y, dx, dy, radius, color));
-      }
-    };
-
-    const mouse = { x: -100, y: -100 };
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.x;
-      mouse.y = e.y;
-    };
-    const handleResize = () => {
-      setSize();
-      init();
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('resize', handleResize);
-
-    init();
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-      ctx.clearRect(0, 0, width, height);
-      circles.forEach(c => c.update(mouse));
-    };
-    animate();
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
+function Nav() {
+  const { t, lang, setLang } = useLang();
   return (
-    <canvas 
-      ref={canvasRef} 
-      id="stars" 
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 0,
-        pointerEvents: 'none'
-      }}
-    />
-  );
-};
-
-// --- Identity Animation Component ---
-const Identity = ({ state }: { state: 'working' | 'rest' | 'robot' | 'flat' }) => {
-  return (
-    <div className={`loading ${state}`} id="identity" title="Identity">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  );
-};
-
-// --- MAIN APP COMPONENT ---
-export default function App() {
-  const [view, setView] = useState<'home' | 'experience' | 'projects' | 'about'>('home');
-  const [identityState, setIdentityState] = useState<'working' | 'robot' | 'flat'>('working');
-
-  useEffect(() => {
-    let isMounted = true;
-    const runAnimationCycle = async () => {
-      while (isMounted) {
-        setIdentityState('working');
-        await new Promise(r => setTimeout(r, 3000));
-        if (!isMounted) break;
-
-        setIdentityState('flat');
-        await new Promise(r => setTimeout(r, 1500));
-        if (!isMounted) break;
-
-        setIdentityState('robot'); 
-        await new Promise(r => setTimeout(r, 3000));
-        if (!isMounted) break;
-
-        setIdentityState('flat');
-        await new Promise(r => setTimeout(r, 1500));
-        if (!isMounted) break;
-      }
-    };
-    runAnimationCycle();
-    return () => { isMounted = false; };
-  }, []);
-
-  const handleNav = (newView: 'home' | 'experience' | 'projects' | 'about') => {
-    setView(newView);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  return (
-    <div className="wrapper" style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
-      
-      {/* 1. Background Stars */}
-      <StarsCanvas />
-      
-      {/* 2. Main Container (Content) */}
-      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-        
-        {/* === HOME VIEW === */}
-        <div className={`template color-yellow ${view === 'home' ? 'current' : ''}`} data-template="home">
-          
-          <main className="flex flex-col lg:flex-row items-center lg:justify-between w-full h-full gap-8 lg:gap-20 px-4 lg:px-0 py-4 lg:py-0 pb-32 lg:pb-0">
-            
-            {/* Left Side: Navigation */}
-            <div className="flex flex-col items-center lg:items-start justify-center w-full lg:w-1/2 z-10 lg:pl-8 order-2 lg:order-1 mt-2 lg:mt-0 text-center lg:text-left">
-              <div className="home-line-item group">
-                  <div className="hidden lg:block absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
-                    <GripVertical size={20} />
-                  </div>
-                  <span className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight"><mark>Data</mark> <mark>Engineer</mark></span>
-              </div>
-              <div className="home-line-item group">
-                  <div className="hidden lg:block absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
-                    <GripVertical size={20} />
-                  </div>
-                <span className="text-lg sm:text-2xl lg:text-4xl text-slate-300 font-normal leading-snug">Rooted in Animal and Brain Science</span>
-              </div>
-              <div className="home-line-item group">
-                  <div className="hidden lg:block absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
-                    <GripVertical size={20} />
-                  </div>
-                <span className="text-slate-400 font-mono text-sm sm:text-base lg:text-lg">{PROFILE.email.replace('mailto:', '')}</span>
-              </div>
-              <div className="home-line-item group">
-                  <div className="hidden lg:block absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
-                    <GripVertical size={20} />
-                  </div>
-                <span className="text-slate-400 font-mono text-sm sm:text-base lg:text-lg">{PROFILE.phone}</span>
-              </div>
-              <div className="home-line-item group">
-                  <div className="hidden lg:block absolute left-[-20px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500">
-                    <GripVertical size={20} />
-                  </div>
-                <div className="links">
-                  <a className="link color-yellow cursor-pointer" onClick={() => handleNav('experience')}>View Experience</a>
-                  <a className="link color-green cursor-pointer" onClick={() => handleNav('projects')}>Side Project</a>
-                  <a className="link color-red cursor-pointer" onClick={() => handleNav('about')}>About Me</a>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Side: Card */}
-            <div className="flex w-full lg:w-1/2 justify-center lg:justify-end items-center lg:h-full z-20 lg:pr-8 order-1 lg:order-2 mb-10 lg:mb-0">
-              <div className="relative w-full max-w-[360px] sm:max-w-[420px] group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-blue-500 to-teal-400 rounded-2xl blur-md opacity-30 group-hover:opacity-60 transition duration-1000"></div>
-                <div className="relative bg-[#1a1c20]/70 backdrop-blur-xl border border-white/10 rounded-2xl p-8 lg:p-10 shadow-2xl flex flex-col items-center text-center gap-4 lg:gap-6">
-                  <div className="w-full flex justify-start">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e]"></div>
-                      <div className="w-3 h-3 rounded-full bg-[#febc2e] border border-[#d89e24]"></div>
-                      <div className="w-3 h-3 rounded-full bg-[#28c840] border border-[#1aab29]"></div>
-                    </div>
-                  </div>
-                  <div className="relative shrink-0 mt-2">
-                    <div className="absolute -inset-4 bg-blue-500/20 rounded-full blur-xl animate-pulse"></div>
-                    <div className="relative w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 border-white/10 shadow-xl mx-auto">
-                        <img src={PROFILE.avatarUrl} alt={PROFILE.name} className="w-full h-full object-cover object-top" />
-                    </div>
-                  </div>
-                  <div className="flex-1 w-full">
-                    <h2 className="text-2xl lg:text-3xl font-bold text-white mb-2 lg:mb-4 font-[Roboto Slab] tracking-wide">{PROFILE.name}</h2>
-                    <p className="text-slate-300 text-xs lg:text-sm leading-relaxed font-sans px-2">{PROFILE.summary}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </main>
-          
-          <footer className="fixed-footer">
-            <div className="links">
-              <a className="link small alt" href={PROFILE.socials.github} target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a className="link small alt" href={PROFILE.socials.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <a className="link small alt" href="https://medium.com/@adams-chang" target="_blank" rel="noopener noreferrer">Medium</a>
-            </div>
-          </footer>
+    <header className="nav">
+      <a className="skip" href="#main">
+        {lang === 'zh' ? '跳到主要內容' : 'Skip to content'}
+      </a>
+      <div className="nav-inner">
+        <a className="brand" href="#top">
+          Adam Chang
+        </a>
+        <nav aria-label={lang === 'zh' ? '主選單' : 'Main'}>
+          <a href="#work">{t(UI.nav.work)}</a>
+          <a href="#projects">{t(UI.nav.projects)}</a>
+          <a href="#journey">{t(UI.nav.journey)}</a>
+          <a href="#about">{t(UI.nav.about)}</a>
+        </nav>
+        <div className="nav-actions">
+          <button
+            className="lang"
+            onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}
+            aria-label={lang === 'en' ? '切換為中文' : 'Switch to English'}
+          >
+            {lang === 'en' ? '中文' : 'EN'}
+          </button>
+          <a className="btn btn-solid btn-small" href={PROFILE.resumeUrl} download>
+            <Download size={16} aria-hidden="true" />
+            <span>{t(UI.nav.resume)}</span>
+          </a>
         </div>
+      </div>
+    </header>
+  );
+}
 
-        {/* === EXPERIENCE VIEW === */}
-        <div className={`template color-yellow ${view === 'experience' ? 'current' : ''}`} data-template="experience">
-          <main>
-            <h1><span>Professional <mark>Experience</mark></span></h1>
-            <ul className="experience-list">
-              {EXPERIENCE.map((exp) => (
-                <li key={exp.id}>
-                  <h3>{exp.role}</h3>
-                  <h4>{exp.company} | {exp.period}</h4>
-                  <ul style={{listStyle: 'disc', paddingLeft: '20px', color: '#aaa', fontSize: '13px', lineHeight: '1.6', marginBottom: '10px'}}>
-                    {exp.description.map((desc, idx) => (
-                      <li key={idx} style={{marginBottom: '5px'}}>{desc}</li>
-                    ))}
-                  </ul>
-                  <div className="tech-stack">
-                    {exp.technologies?.map(t => <span key={t}>{t}</span>)}
+function Hero() {
+  const { t } = useLang();
+  return (
+    <section id="top" className="hero">
+      <div className="wrap hero-grid">
+        <div className="hero-copy">
+          <p className="hero-role">
+            {PROFILE.name} ({PROFILE.nickname}) <span>/ {t(UI.hero.role)}</span>
+          </p>
+          <h1>{t(UI.hero.headline)}</h1>
+          <p className="hero-sub">{t(UI.hero.sub)}</p>
+          <p className="status">
+            <span className="status-dot" aria-hidden="true" />
+            {t(UI.hero.status)}
+          </p>
+          <div className="hero-actions">
+            <a className="btn btn-solid" href={PROFILE.resumeUrl} download>
+              <Download size={18} aria-hidden="true" />
+              {t(UI.nav.resume)}
+            </a>
+            <a className="btn btn-ghost" href="#projects">
+              {t(UI.hero.seeProjects)}
+              <ArrowDown size={18} aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+        <Lineage />
+      </div>
+    </section>
+  );
+}
+
+function Work() {
+  const { t } = useLang();
+  const [openId, setOpenId] = useState<string | null>(EXPERIENCE[0].id);
+  return (
+    <section id="work" className="section">
+      <div className="wrap">
+        <h2>{t(UI.work.title)}</h2>
+        <p className="lead">{t(UI.work.lead)}</p>
+        <ol className="jobs">
+          {EXPERIENCE.map((job) => {
+            const open = openId === job.id;
+            return (
+              <li key={job.id} className="job">
+                <p className="job-period">{job.period}</p>
+                <div className="job-body">
+                  <h3>
+                    {t(job.role)} <span className="job-at">{t(job.company)}</span>
+                  </h3>
+                  <p className="job-headline">{t(job.headline)}</p>
+                  {open && (
+                    <ul className="job-bullets" id={`job-${job.id}`}>
+                      {job.bullets.map((b) => (
+                        <li key={b.en}>{t(b)}</li>
+                      ))}
+                    </ul>
+                  )}
+                  <div className="job-foot">
+                    <span className="tags">
+                      {job.tech.map((x) => (
+                        <span key={x}>{x}</span>
+                      ))}
+                    </span>
+                    <button className="text-link" aria-expanded={open} aria-controls={`job-${job.id}`} onClick={() => setOpenId(open ? null : job.id)}>
+                      {t(open ? UI.work.less : UI.work.more)}
+                    </button>
                   </div>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+function About() {
+  const { t } = useLang();
+  const [fallback, setFallback] = useState(false);
+  return (
+    <section id="about" className="section about">
+      <div className="wrap">
+        <h2>{t(UI.about.title)}</h2>
+        <div className="about-grid">
+          <div className="about-text">
+            <img
+              className="portrait"
+              src={fallback ? './adam-flowers.webp' : PROFILE.avatarUrl}
+              onError={() => setFallback(true)}
+              alt={PROFILE.name}
+              width={160}
+              height={160}
+              referrerPolicy="no-referrer"
+            />
+            {ABOUT.map((p) => (
+              <p key={p.en}>{t(p)}</p>
+            ))}
+          </div>
+          <div className="about-facts">
+            <h3>{t(UI.about.education)}</h3>
+            <ul className="plain">
+              {EDUCATION.map((e) => (
+                <li key={e.period}>
+                  <strong>{t(e.degree)}</strong>
+                  <span>
+                    {t(e.school)}, {e.period}
+                  </span>
                 </li>
               ))}
             </ul>
-            <div className="links pb-8" style={{marginTop: '60px'}}>
-              <a className="link color-red cursor-pointer" onClick={() => handleNav('home')}>Back Home</a>
-            </div>
-          </main>
+            <h3>{t(UI.about.certs)}</h3>
+            <ul className="plain">
+              {CERTS.map((c) => (
+                <li key={c}>
+                  <span>{c}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        {/* === PROJECTS VIEW === */}
-        <div className={`template color-blue ${view === 'projects' ? 'current' : ''}`} data-template="projects">
-          <main>
-            <h1><span>Side <mark>Projects</mark></span></h1>
-            <div className="projects-list">
-              {PROJECTS.map((proj) => (
-                <div key={proj.id} className="project-item">
-                  <h3>{proj.title}</h3>
-                  <p>{proj.description}</p>
-                  <div className="project-links">
-                    {proj.repoUrl && (
-                      <a href={proj.repoUrl} target="_blank" rel="noopener noreferrer">GitHub Repo</a>
-                    )}
-                    {proj.demoUrl && (
-                      <a href={proj.demoUrl} target="_blank" rel="noopener noreferrer">Live Demo</a>
-                    )}
-                  </div>
-                  <div className="tech-stack" style={{marginTop: '15px'}}>
-                      {proj.technologies.map(t => (
-                        <span key={t} style={{
-                          display: 'inline-block',
-                          background: 'rgba(255,255,255,0.1)',
-                          padding: '2px 8px',
-                          borderRadius: '4px',
-                          fontSize: '11px',
-                          marginRight: '5px',
-                          marginBottom: '5px',
-                          color: '#ddd'
-                        }}>{t}</span>
-                      ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="links pb-8" style={{marginTop: '60px'}}>
-              <a className="link color-red cursor-pointer" onClick={() => handleNav('home')}>Back Home</a>
-            </div>
-          </main>
-        </div>
-
-        {/* === ABOUT VIEW === */}
-        <div className={`template color-green ${view === 'about' ? 'current' : ''}`} data-template="about">
-          <main>
-            <h1><span>About <mark>Me</mark></span></h1>
-            
-            {/* Education */}
-            <div style={{marginBottom: '40px'}}>
-              <h2 style={{color: 'white', fontSize: '24px', marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px'}}>Education</h2>
-              {EDUCATION.map((edu, i) => (
-                <div key={i} style={{marginBottom: '20px', color: '#aaa'}}>
-                  <strong style={{color: '#fff', fontSize: '18px', display: 'block'}}>{edu.degree}</strong>
-                  <span style={{fontSize: '14px', color: '#419d78'}}>{edu.school}</span>
-                  <div style={{fontSize: '12px', marginTop: '5px'}}>{edu.period}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Military Service */}
-            <div style={{marginBottom: '40px'}}>
-              <h2 style={{color: 'white', fontSize: '24px', marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px'}}>Military Service</h2>
-              {MILITARY_SERVICE.map((mil) => (
-                <div key={mil.id} style={{marginBottom: '20px'}}>
-                   <strong style={{color: '#fff', fontSize: '18px', display: 'block'}}>{mil.role}</strong>
-                   <span style={{fontSize: '14px', color: '#419d78'}}>{mil.company} | {mil.period}</span>
-                   <ul style={{listStyle: 'disc', paddingLeft: '20px', color: '#aaa', fontSize: '13px', lineHeight: '1.6', marginTop: '10px'}}>
-                    {mil.description.map((desc, idx) => (
-                      <li key={idx} style={{marginBottom: '5px'}}>{desc}</li>
-                    ))}
-                   </ul>
-                </div>
-              ))}
-            </div>
-
-            {/* Club Experience */}
-            <div style={{marginBottom: '40px'}}>
-              <h2 style={{color: 'white', fontSize: '24px', marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px'}}>Club Experience</h2>
-              {CLUBS.map((club) => (
-                <div key={club.id} style={{marginBottom: '20px'}}>
-                   <strong style={{color: '#fff', fontSize: '18px', display: 'block'}}>{club.role}</strong>
-                   <span style={{fontSize: '14px', color: '#419d78'}}>{club.company} | {club.period}</span>
-                   <ul style={{listStyle: 'disc', paddingLeft: '20px', color: '#aaa', fontSize: '13px', lineHeight: '1.6', marginTop: '10px'}}>
-                    {club.description.map((desc, idx) => (
-                      <li key={idx} style={{marginBottom: '5px'}}>{desc}</li>
-                    ))}
-                   </ul>
-                </div>
-              ))}
-            </div>
-            
-            {/* Skills */}
-            <div style={{marginBottom: '40px'}}>
-              <h2 style={{color: 'white', fontSize: '24px', marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px'}}>Key Skills</h2>
-              <div className="skills-grid">
-                {SKILLS.map((cat, i) => (
-                  <div key={i} className="skill-card">
-                    <h4>{cat.category}</h4>
-                    <div>
-                      {cat.items.map(skill => <span key={skill}>{skill}</span>)}
-                    </div>
-                  </div>
+        <h3 className="sub">{t(UI.about.skills)}</h3>
+        <dl className="skills">
+          {SKILLS.map((s) => (
+            <div key={s.group.en}>
+              <dt>{t(s.group)}</dt>
+              <dd className="tags">
+                {s.items.map((x) => (
+                  <span key={x}>{x}</span>
                 ))}
-              </div>
+              </dd>
             </div>
+          ))}
+        </dl>
 
-            <div className="links pb-8" style={{marginTop: '60px'}}>
-              <a className="link color-red cursor-pointer" onClick={() => handleNav('home')}>Back Home</a>
-            </div>
-          </main>
-        </div>
-
-        {/* 3. Floating Elements */}
-        <Identity state={identityState} />
-        <AIChat />
-
+        <h3 className="sub">{t(UI.about.clubs)}</h3>
+        <ul className="clubs">
+          {CLUBS.map((c) => (
+            <li key={c.org.en}>
+              <p className="club-period">{c.period}</p>
+              <strong>
+                {t(c.role)}, {t(c.org)}
+              </strong>
+              <p>{t(c.note)}</p>
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+    </section>
+  );
+}
+
+function Contact() {
+  const { t } = useLang();
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(PROFILE.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      window.location.href = `mailto:${PROFILE.email}`;
+    }
+  };
+  return (
+    <footer id="contact" className="contact">
+      <div className="wrap contact-grid">
+        <img className="contact-photo" src="./adam-flowers.webp" alt="" width={220} height={220} loading="lazy" />
+        <div>
+          <h2>{t(UI.contact.title)}</h2>
+          <p className="lead">{t(UI.contact.lead)}</p>
+          <p className="contact-email">
+            <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
+          </p>
+          <div className="hero-actions">
+            <button className="btn btn-ghost" onClick={copy}>
+              {copied ? <Check size={18} aria-hidden="true" /> : <Copy size={18} aria-hidden="true" />}
+              <span aria-live="polite">{t(copied ? UI.contact.copied : UI.contact.copy)}</span>
+            </button>
+            <a className="btn btn-solid" href={PROFILE.resumeUrl} download>
+              <Download size={18} aria-hidden="true" />
+              {t(UI.nav.resume)}
+            </a>
+          </div>
+          <p className="fine">{t(UI.contact.resumeNote)}</p>
+          <ul className="socials">
+            <li>
+              <a href={PROFILE.socials.linkedin} target="_blank" rel="noopener noreferrer">
+                <Linkedin size={18} aria-hidden="true" /> LinkedIn
+              </a>
+            </li>
+            <li>
+              <a href={PROFILE.socials.github} target="_blank" rel="noopener noreferrer">
+                <Github size={18} aria-hidden="true" /> GitHub
+              </a>
+            </li>
+            <li>
+              <a href={PROFILE.socials.medium} target="_blank" rel="noopener noreferrer">
+                <PenLine size={18} aria-hidden="true" /> Medium
+              </a>
+            </li>
+            <li>
+              <a href={PROFILE.socials.instagram} target="_blank" rel="noopener noreferrer">
+                <Instagram size={18} aria-hidden="true" /> Instagram
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${PROFILE.email}`}>
+                <Mail size={18} aria-hidden="true" /> Email
+              </a>
+            </li>
+          </ul>
+          <p className="fine">
+            © {new Date().getFullYear()} {PROFILE.name}
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default function App() {
+  return (
+    <LangProvider>
+      <Nav />
+      <main id="main">
+        <Hero />
+        <Work />
+        <Projects />
+        <Journey />
+        <About />
+      </main>
+      <Contact />
+      <AIChat />
+    </LangProvider>
   );
 }

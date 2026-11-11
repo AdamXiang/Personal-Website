@@ -1,169 +1,115 @@
+import { useEffect, useRef, useState } from 'react';
+import { GoogleGenAI } from '@google/genai';
+import { MessageCircle, Send, X } from 'lucide-react';
+import { ABOUT, EXPERIENCE, LIVE, PROFILE, REPOS, SKILLS } from '../data/content';
+import { useLang } from '../lang';
 
-import React, { useState, useRef, useEffect } from 'react';
-import { GoogleGenAI } from "@google/genai";
-import { MessageCircle, X, Send, Bot, Loader2 } from 'lucide-react';
-import { PROFILE, EXPERIENCE, PROJECTS, SKILLS } from '../constants';
+const SYSTEM_INSTRUCTION = `You are a helpful AI assistant on the personal website of ${PROFILE.name} (Adam).
+Answer questions from recruiters or visitors about Adam's background, skills and projects.
 
-const SYSTEM_INSTRUCTION = `You are a helpful AI assistant for the personal portfolio website of ${PROFILE.name}. 
-Your goal is to answer questions from recruiters or visitors about Adam's background, skills, and projects.
-
-Here is Adam's Resume Context:
-Profile: ${JSON.stringify(PROFILE)}
-Experience: ${JSON.stringify(EXPERIENCE)}
-Projects: ${JSON.stringify(PROJECTS)}
-Skills: ${JSON.stringify(SKILLS)}
+Context:
+Profile: ${JSON.stringify({ name: PROFILE.name, email: PROFILE.email, socials: PROFILE.socials })}
+About: ${ABOUT.map((a) => a.en).join(' ')}
+Experience: ${JSON.stringify(EXPERIENCE.map((e) => ({ role: e.role.en, company: e.company.en, period: e.period, bullets: e.bullets.map((b) => b.en), tech: e.tech })))}
+Live products: ${JSON.stringify(LIVE.map((p) => ({ name: p.name.en, url: p.url, pitch: p.pitch.en })))}
+GitHub projects: ${JSON.stringify(REPOS.map((r) => ({ repo: r.repo, about: r.desc.en, tech: r.tech })))}
+Skills: ${JSON.stringify(SKILLS.map((s) => ({ group: s.group.en, items: s.items })))}
+He also served 237 days of diplomatic alternative service with the Taiwan Technical Mission in Eswatini (Nov 2024 to Jul 2025) on a pig industry project.
 
 Guidelines:
-1. Be professional, concise, and polite.
-2. Only answer questions related to Adam's professional life.
-3. If asked about contact info, provide the email or LinkedIn from the profile.
-4. Highlight his strengths in Data Engineering (Python, ETL, Cloud).
-5. Keep answers short (under 100 words) unless asked for detail.
-`;
+1. Be professional, concise and polite. Reply in the language the visitor writes in.
+2. Only answer questions about Adam's professional life and this website.
+3. If asked for contact details, give the email or LinkedIn from the profile.
+4. Keep answers under 100 words unless asked for detail. Never invent facts that are not in the context.`;
 
-interface Message {
-  role: 'user' | 'model';
-  text: string;
-}
+type Message = { role: 'user' | 'model'; text: string };
 
-export const AIChat: React.FC = () => {
+const COPY = {
+  hello: { en: "Hi! I'm Adam's AI assistant. Ask me about his experience, skills or projects.", zh: '嗨！我是 Adam 的 AI 助理，歡迎問我他的經歷、技能或作品。' },
+  title: { en: 'Ask about Adam', zh: '問問關於 Adam 的事' },
+  placeholder: { en: 'For example: what has he built with Kafka?', zh: '例如：他用 Kafka 做過什麼？' },
+  open: { en: 'Open the AI assistant', zh: '開啟 AI 助理' },
+  close: { en: 'Close the AI assistant', zh: '關閉 AI 助理' },
+  send: { en: 'Send message', zh: '送出訊息' },
+  thinking: { en: 'Thinking', zh: '思考中' },
+  error: { en: 'The assistant could not be reached. Try again in a moment, or email Adam directly.', zh: '目前無法連上助理。請稍後再試，或直接寫信給 Adam。' },
+};
+
+export function AIChat() {
+  const { t } = useLang();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    { role: 'model', text: "Hi! I'm Adam's AI assistant. Ask me anything about his experience or skills!" }
-  ]);
-  const [inputValue, setInputValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, [messages, loading]);
 
-  const handleSend = async () => {
-    if (!inputValue.trim()) return;
+  // Without an API key the assistant cannot answer, so the button is not shown at all.
+  if (!process.env.API_KEY) return null;
 
-    const userMsg = inputValue;
-    setInputValue('');
-    setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
-
-    // Check if API key is missing at runtime and notify user
-    if (!process.env.API_KEY) {
-      setMessages(prev => [...prev, { role: 'model', text: "⚠️ System Error: API_KEY is missing. Please add the API_KEY environment variable in your Vercel project settings and redeploy." }]);
-      return;
-    }
-
-    setIsLoading(true);
-
+  const send = async () => {
+    const userMsg = input.trim();
+    if (!userMsg || loading) return;
+    setInput('');
+    const history = [...messages, { role: 'user' as const, text: userMsg }];
+    setMessages(history);
+    setLoading(true);
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: [
-            ...messages.map(m => ({ 
-                role: m.role, 
-                parts: [{ text: m.text }] 
-            })),
-            { role: 'user', parts: [{ text: userMsg }] }
-        ],
-        config: {
-          systemInstruction: SYSTEM_INSTRUCTION,
-        }
+        contents: history.map((m) => ({ role: m.role, parts: [{ text: m.text }] })),
+        config: { systemInstruction: SYSTEM_INSTRUCTION },
       });
-
-      const text = response.text || "I'm sorry, I couldn't generate a response at the moment.";
-      setMessages(prev => [...prev, { role: 'model', text }]);
+      setMessages((prev) => [...prev, { role: 'model', text: response.text || t(COPY.error) }]);
     } catch (error) {
       console.error(error);
-      setMessages(prev => [...prev, { role: 'model', text: "Sorry, I encountered an error connecting to the AI service." }]);
+      setMessages((prev) => [...prev, { role: 'model', text: t(COPY.error) }]);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
-  // Removed the early return to ensure the UI is always visible
-  // if (!process.env.API_KEY) return null;
-
   return (
-    <div className="fixed bottom-6 right-6 z-[110] flex flex-col items-end">
-      {/* Chat Window */}
+    <div className="chat">
       {isOpen && (
-        <div className="mb-4 w-80 md:w-96 bg-white border border-gray-200 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fade-in-up" style={{ height: '500px' }}>
-          {/* Header */}
-          <div className="bg-white p-4 border-b border-gray-200 flex justify-between items-center shadow-sm z-10">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
-                <Bot size={18} />
-              </div>
-              <span className="font-semibold text-gray-800">Ask about Adam</span>
-            </div>
-            <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-gray-700 transition">
+        <div className="chat-window" role="dialog" aria-label={t(COPY.title)}>
+          <div className="chat-head">
+            <strong>{t(COPY.title)}</strong>
+            <button onClick={() => setIsOpen(false)} aria-label={t(COPY.close)}>
               <X size={20} />
             </button>
           </div>
-
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
-            {messages.map((msg, idx) => (
-              <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] p-3 rounded-2xl text-sm shadow-sm ${
-                  msg.role === 'user' 
-                    ? 'bg-blue-600 text-white rounded-tr-none' 
-                    : 'bg-white border border-gray-200 text-gray-700 rounded-tl-none'
-                }`}>
-                  {msg.text}
-                </div>
-              </div>
+          <div className="chat-log">
+            <p className="msg model">{t(COPY.hello)}</p>
+            {messages.map((m, i) => (
+              <p key={i} className={`msg ${m.role}`}>
+                {m.text}
+              </p>
             ))}
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-white border border-gray-200 p-3 rounded-2xl rounded-tl-none flex items-center gap-2 shadow-sm">
-                  <Loader2 size={16} className="animate-spin text-blue-600" />
-                  <span className="text-xs text-gray-500">Thinking...</span>
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
+            {loading && <p className="msg model pending">{t(COPY.thinking)}…</p>}
+            <div ref={endRef} />
           </div>
-
-          {/* Input */}
-          <div className="p-3 bg-white border-t border-gray-200">
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Ask about my skills..."
-                className="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-4 py-2 text-sm text-gray-800 focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none placeholder-gray-400 transition-all"
-              />
-              <button 
-                onClick={handleSend}
-                disabled={isLoading || !inputValue.trim()}
-                className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
-              >
-                <Send size={18} />
-              </button>
-            </div>
-          </div>
+          <form
+            className="chat-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              send();
+            }}
+          >
+            <input value={input} onChange={(e) => setInput(e.target.value)} placeholder={t(COPY.placeholder)} aria-label={t(COPY.title)} />
+            <button type="submit" disabled={loading || !input.trim()} aria-label={t(COPY.send)}>
+              <Send size={18} />
+            </button>
+          </form>
         </div>
       )}
-
-      {/* Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="group relative flex items-center justify-center w-14 h-14 bg-white hover:bg-gray-50 text-blue-600 border border-gray-200 rounded-full shadow-lg transition-all hover:scale-110 active:scale-95"
-      >
-        {isOpen ? <X size={24} /> : <MessageCircle size={28} />}
-        {!isOpen && (
-          <span className="absolute right-16 bg-white text-gray-800 border border-gray-200 px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition shadow-md font-medium text-sm pointer-events-none">
-            Chat with AI
-          </span>
-        )}
+      <button className="chat-toggle" onClick={() => setIsOpen(!isOpen)} aria-label={t(isOpen ? COPY.close : COPY.open)} aria-expanded={isOpen}>
+        {isOpen ? <X size={24} /> : <MessageCircle size={26} />}
       </button>
     </div>
   );
-};
+}
