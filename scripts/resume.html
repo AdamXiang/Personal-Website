@@ -6,12 +6,12 @@
 <style>
   @page { size: A4; margin: 7mm 12mm; }
   * { box-sizing: border-box; }
-  body { margin: 0; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 8.1pt; line-height: 1.28; color: #11241f; }
+  body { margin: 0; font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 8pt; line-height: 1.26; color: #11241f; }
   h1 { font-size: 21pt; margin: 0; letter-spacing: -0.02em; }
   .title { font-size: 10.5pt; font-weight: 600; color: #1d4b40; margin: 2pt 0 5pt; }
   .contact { display: flex; flex-wrap: wrap; gap: 2pt 12pt; font-size: 8.4pt; color: #3c4d47; }
   .contact a { color: inherit; text-decoration: none; }
-  h2 { font-size: 9.3pt; margin: 6pt 0 3pt; padding-bottom: 2pt; border-bottom: 1.2pt solid #11241f; letter-spacing: 0.01em; }
+  h2 { font-size: 9.2pt; margin: 5pt 0 2.5pt; padding-bottom: 2pt; border-bottom: 1.2pt solid #11241f; letter-spacing: 0.01em; }
   p { margin: 0; }
   .job { margin-bottom: 4pt; break-inside: avoid; }
   .row { display: flex; justify-content: space-between; gap: 10pt; align-items: baseline; }
@@ -39,11 +39,14 @@
   </p>
 
   <h2>Summary</h2>
-  <p>Data engineer at Cathay Life Insurance with hands-on experience across insurance, consulting, market research and consumer hardware. I build automated pipelines, medallion data models and dashboards with Python, SQL, dbt, Databricks and Azure. Recent results: a DataStage-to-dbt migration that cut deployment and maintenance time by over 50%, a 40-minute ETL job brought under 1 minute per file, and 30&ndash;80&times; faster database ingestion.</p>
+  <p>Data engineer joining Lion Travel in December 2026, with hands-on experience across insurance, consulting, market research and consumer hardware. I build automated pipelines, medallion data models and dashboards with Python, SQL, dbt, Databricks and Azure. Recent results: a DataStage-to-dbt migration that cut deployment and maintenance time by over 50%, a 40-minute ETL job brought under 1 minute per file, and 30&ndash;80&times; faster database ingestion.</p>
 
   <h2>Experience</h2>
   <div class="job">
-    <div class="row"><strong>Data Engineer, <span class="org" style="white-space:normal">Cathay Life Insurance</span></strong><span>May 2026 &ndash; Present</span></div>
+    <div class="row"><strong>Data Engineer, <span class="org" style="white-space:normal">Lion Travel</span></strong><span>Starting Dec 2026</span></div>
+  </div>
+  <div class="job">
+    <div class="row"><strong>Data Engineer, <span class="org" style="white-space:normal">Cathay Life Insurance</span></strong><span>May 2026 &ndash; Nov 2026</span></div>
     <ul>
       <li>Designed scalable ETL pipelines with IBM DataStage on a medallion architecture, implementing change data capture and SCD Type 2; refactored legacy workflows for a 30% gain in overall run efficiency.</li>
       <li>Drove the migration of pipelines from DataStage to dbt, simplifying the system and adding version control, automated testing and data lineage, which cut deployment and maintenance time by more than 50%.</li>
@@ -76,8 +79,7 @@
     <ul>
       <li>Engineered a real-time Power BI and Azure Synapse reporting solution with operations managers, reducing reporting time by 75%.</li>
       <li>Architected and standardised a medallion architecture (bronze, silver, gold) as the single source of truth for analysts.</li>
-      <li>Orchestrated ELT and HTTP API ingestion pipelines in Azure Data Factory, ensuring 100% on-time scheduled refreshes.</li>
-      <li>Migrated legacy Excel workflows to Metabase with optimised SQL transformations on Azure Synapse.</li>
+      <li>Orchestrated ELT and HTTP API ingestion in Azure Data Factory with 100% on-time refreshes, and moved legacy Excel workflows to Metabase on Azure Synapse.</li>
     </ul>
   </div>
   <div class="job">
@@ -93,14 +95,13 @@
     <li><strong>AdmGPT</strong>: self-hosted ChatGPT-style assistant on Claude and LangGraph with streaming chat, RAG over uploaded documents, web search and long-term memory.</li>
     <li><strong>AI Agent Evaluation</strong>: end-to-end evaluation of a tool-using refund agent with DeepEval across answer, tool-call and trace-level metrics.</li>
     <li><strong>Banking CDC pipeline</strong>: PostgreSQL &rarr; Debezium/Kafka &rarr; MinIO &rarr; Snowflake with SCD Type 2 marts, orchestrated by Airflow and dbt.</li>
-    <li><strong>Kitchen Clash</strong> (kitchen-clash.onrender.com): browser pickleball game with online multiplayer and voice chat.</li>
   </ul>
 
   <h2>Skills</h2>
   <dl class="skills">
     <dt>Languages</dt><dd>Python, SQL, PySpark</dd>
     <dt>Data engineering</dt><dd>dbt, Apache Airflow, IBM DataStage, Azure Data Factory, Kafka, Spark, Flink, Delta Live Tables, medallion architecture, CDC</dd>
-    <dt>Platforms</dt><dd>Databricks, Azure Synapse, Microsoft Fabric, Snowflake, ClickHouse, SQL Server, MongoDB, Docker</dd>
+    <dt>Platforms</dt><dd>AWS, Databricks, Azure Synapse, Microsoft Fabric, Snowflake, ClickHouse, SQL Server, MongoDB, Docker</dd>
     <dt>Analytics</dt><dd>Power BI, Tableau, Metabase, Apache Superset, Google Sheets, Excel</dd>
     <dt>AI engineering</dt><dd>LangGraph, LangChain, RAG, Model Context Protocol, DeepEval</dd>
   </dl>
@@ -112,11 +113,15 @@
       <p>National Yang Ming Chiao Tung University</p>
       <div class="row" style="margin-top:3pt"><strong>B.S., Animal Science</strong><span>2017 &ndash; 2021</span></div>
       <p>National Taiwan University</p>
+      <h2>Certifications</h2>
+      <p><strong>AWS Certified Solutions Architect &ndash; Associate</strong></p>
+      <p><strong>Databricks Certified Data Engineer Associate</strong></p>
     </div>
     <div>
-      <h2>Certification and service</h2>
-      <p><strong>Databricks Certified Data Engineer Associate</strong></p>
-      <p style="margin-top:3pt"><strong>Diplomatic Alternative Service</strong>, Taiwan Technical Mission in Eswatini, Nov 2024 &ndash; Jul 2025. Supported a national pig industry improvement project.</p>
+      <h2>Service and teaching</h2>
+      <p><strong>Diplomatic Alternative Service</strong>, Taiwan Technical Mission in Eswatini, Nov 2024 &ndash; Jul 2025. Supported a national pig industry improvement project.</p>
+      <p style="margin-top:2pt"><strong>Substitute Teacher</strong>, Yong&rsquo;an Elementary School, Sep 2021 &ndash; Dec 2022.</p>
+      <p style="margin-top:2pt"><strong>Volunteer tennis coach</strong>: taught the basics to 10 friends, free of charge.</p>
     </div>
   </div>
 </body>

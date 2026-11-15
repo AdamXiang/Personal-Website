@@ -34,10 +34,14 @@ export const UI = {
       { en: 'Now I build data pipelines.', zh: '現在寫資料管線' },
     ] as L[],
     sub: {
-      en: 'I am Adam, a data engineer at Cathay Life Insurance in Taipei. Animal science at NTU, brain science at NYCU, nearly eight months on a pig farm in Eswatini, and somewhere along the way I found out that what I like most is making messy data behave.',
-      zh: '嗨，我是 Adam，現在在國泰人壽當資料工程師。臺大動科出身，碩士念的是腦科學，當兵那年人在史瓦帝尼的豬場。路繞得有點遠，不過我蠻確定自己喜歡的就是把亂七八糟的資料弄到能用。',
+      en: 'I am Adam, a data engineer in Taipei. Animal science at NTU, brain science at NYCU, nearly eight months on a pig farm in Eswatini, and somewhere along the way I found out that what I like most is making messy data behave.',
+      zh: '嗨，我是 Adam，在台北當資料工程師。臺大動科出身，碩士念的是腦科學，當兵那年人在史瓦帝尼的豬場。路繞得有點遠，不過我蠻確定自己喜歡的就是把亂七八糟的資料弄到能用。',
     },
-    status: { en: 'Data engineer at Cathay Life Insurance', zh: '現職：國泰人壽 資料工程師' },
+    // The status line switches by itself on the first day at Lion Travel.
+    status: {
+      before: { en: 'Data engineer at Cathay Life Insurance, joining Lion Travel on 7 December', zh: '現職國泰人壽資料工程師，12 月 7 日起加入雄獅資訊' },
+      after: { en: 'Data engineer at Lion Travel', zh: '現職：雄獅資訊 資料工程師' },
+    },
     seeProjects: { en: 'See my work', zh: '看我的作品' },
     scroll: { en: '237 days in Eswatini, further down', zh: '往下滑，還有在史瓦帝尼的 237 天' },
   },
@@ -48,18 +52,19 @@ export const UI = {
   work: {
     title: { en: 'Where I have worked', zh: '工作經歷' },
     lead: {
-      en: 'Six teams across insurance, consulting, hardware and market research. The common thread is taking slow, manual data work and making it fast and automatic.',
-      zh: '待過保險、顧問、硬體、市調，一共六個團隊。做的事情其實很像：把原本又慢又要人工顧的資料流程，改成跑得快、自己會跑。',
+      en: 'Insurance, consulting, hardware and market research so far, and travel from December. The common thread is taking slow, manual data work and making it fast and automatic.',
+      zh: '保險、顧問、硬體、市調都待過，12 月開始換到旅遊業。做的事情其實很像：把原本又慢又要人工顧的資料流程，改成跑得快、自己會跑。',
     },
     more: { en: 'Show all details', zh: '看完整內容' },
     less: { en: 'Show less', zh: '收起來' },
     now: { en: 'Now', zh: '現職' },
+    soon: { en: 'Starting soon', zh: '即將到職' },
   },
   projects: {
     title: { en: 'Things I built', zh: '我做的東西' },
     lead: {
-      en: 'Three of them are live, so you can open them right now. The rest are on GitHub.',
-      zh: '有三個已經上線，現在就能點進去玩。其他的都放在 GitHub。',
+      en: 'Four of them are live, so you can open them right now. The rest are on GitHub.',
+      zh: '有四個已經上線，現在就能點進去玩。其他的都放在 GitHub。',
     },
     featuredTitle: { en: 'If you only open a few repos', zh: 'GitHub 上最想給你看的幾個' },
     featuredLead: {
@@ -107,7 +112,8 @@ export const UI = {
     education: { en: 'Education', zh: '學歷' },
     skills: { en: 'Tools I use', zh: '常用工具' },
     certs: { en: 'Certifications', zh: '證照' },
-    clubs: { en: 'Outside the classroom', zh: '學生時期的社團' },
+    beyond: { en: 'Away from data', zh: '資料以外' },
+    clubs: { en: 'Student clubs', zh: '學生時期的社團' },
   },
   contact: {
     title: { en: 'Say hello', zh: '找我聊聊' },
@@ -127,12 +133,12 @@ export const ABOUT: L[] = [
     zh: '資料工程裡我最有成就感的，反而是那些沒人會特別稱讚的部分。資料進來一筆都沒少，新同事打開 model 不用問我就看得懂，報表在大家上班前就自己更新好了。',
   },
   {
-    en: 'At Cathay Life I am moving pipelines from IBM DataStage to dbt. Before that, at DATARGET, I took a 40-minute ETL job to under a minute per file by replacing Pandas with parallel ClickHouse Local, and at CXG I cut reporting time by 75% with Power BI on Azure Synapse.',
-    zh: '現在在國泰人壽，主要在把 pipeline 從 IBM DataStage 搬到 dbt。前一份在創代科技，有一支 ETL 每個檔案要跑 40 分鐘，我把 Pandas 換成平行跑的 ClickHouse Local 之後不到 1 分鐘。更早在 CXG 實習，用 Power BI 接 Azure Synapse，報表時間少了 75%。',
+    en: 'At Cathay Life I moved pipelines from IBM DataStage to dbt and cut deployment and maintenance time by more than half; in December I join Lion Travel. Before that, at DATARGET, I took a 40-minute ETL job to under a minute per file by replacing Pandas with parallel ClickHouse Local, and at CXG I cut reporting time by 75% with Power BI on Azure Synapse.',
+    zh: '在國泰人壽這半年，主要在把 pipeline 從 IBM DataStage 搬到 dbt，部署跟維護的時間少了一半以上。12 月開始到雄獅資訊。再前一份在創代科技，有一支 ETL 每個檔案要跑 40 分鐘，我把 Pandas 換成平行跑的 ClickHouse Local 之後不到 1 分鐘。更早在 CXG 實習，用 Power BI 接 Azure Synapse，報表時間少了 75%。',
   },
   {
-    en: 'Lately my evenings go to AI agents: how to give a model tools, how to keep it honest, and how to prove it behaves. Away from a keyboard you will probably find me on a court.',
-    zh: '最近下班都在玩 AI Agent，想搞懂怎麼讓模型用工具、怎麼不讓它亂講，還有到底要怎麼測。沒在寫程式的時候，大概在球場上。',
+    en: 'Lately my evenings go to AI agents: how to give a model tools, how to keep it honest, and how to prove it behaves. Away from a keyboard I am usually on a tennis court, teaching a friend to hit a forehand.',
+    zh: '最近下班都在玩 AI Agent，想搞懂怎麼讓模型用工具、怎麼不讓它亂講，還有到底要怎麼測。沒在寫程式的時候，大概在網球場教朋友打球。',
   },
 ];
 
@@ -172,11 +178,11 @@ export const LINEAGE: Stage[] = [
     id: 'gold',
     layer: { en: 'Gold: in use', zh: 'Gold 可用' },
     title: { en: 'Data Engineering', zh: '資料工程' },
-    place: { en: 'Cathay Life, DATARGET, Logitech, uppeta, CXG, Cathay Financial', zh: '國泰人壽、創代科技、羅技、uppeta、CXG、國泰金控' },
+    place: { en: 'Lion Travel (from Dec 2026), Cathay Life, DATARGET, Logitech, uppeta, CXG, Cathay Financial', zh: '雄獅資訊（2026/12 起）、國泰人壽、創代科技、羅技、uppeta、CXG、國泰金控' },
     years: '2023 – now',
     kept: {
-      en: 'Pipelines, models and dashboards that teams rely on every day: a 40-minute job brought under a minute, reporting time cut by 75%, a DataStage estate moving to dbt.',
-      zh: '現在做的是別人每天上班會用到的東西。40 分鐘的 ETL 壓到 1 分鐘內、報表時間少 75%，目前在把 DataStage 的流程一支一支搬到 dbt。',
+      en: 'Pipelines, models and dashboards that teams rely on every day: a 40-minute job brought under a minute, reporting time cut by 75%, a DataStage estate moved to dbt.',
+      zh: '現在做的是別人每天上班會用到的東西。40 分鐘的 ETL 壓到 1 分鐘內、報表時間少 75%，在國泰人壽把 DataStage 的流程一支一支搬到 dbt。',
     },
   },
 ];
@@ -186,7 +192,10 @@ export type Job = {
   role: L;
   company: L;
   period: string;
-  current?: boolean;
+  // ISO dates; the "Now" and "Starting soon" badges are worked out from these.
+  start: string;
+  end?: string;
+  upcomingPeriod?: L;
   headline: L;
   bullets: L[];
   tech: string[];
@@ -194,11 +203,26 @@ export type Job = {
 
 export const EXPERIENCE: Job[] = [
   {
+    id: 'lion',
+    role: { en: 'Data Engineer', zh: '資料工程師' },
+    company: { en: 'Lion Travel', zh: '雄獅資訊科技' },
+    period: 'Dec 2026 – Present',
+    start: '2026-12-07',
+    upcomingPeriod: { en: 'Starts 7 Dec 2026', zh: '2026/12/7 到職' },
+    headline: {
+      en: 'Joining the company that builds Lion Travel\'s booking engines and travel systems.',
+      zh: '加入雄獅旅遊集團的資訊公司，負責訂購系統與旅遊服務背後的資料。',
+    },
+    bullets: [],
+    tech: [],
+  },
+  {
     id: 'cathay-life',
     role: { en: 'Data Engineer', zh: '資料工程師' },
     company: { en: 'Cathay Life Insurance', zh: '國泰人壽' },
-    period: 'May 2026 – Present',
-    current: true,
+    period: 'May 2026 – Nov 2026',
+    start: '2026-05-01',
+    end: '2026-11-30',
     headline: {
       en: 'Moving pipelines from IBM DataStage to dbt, with deployment and maintenance time cut by more than half.',
       zh: '把 Pipeline 從 IBM DataStage 遷移至 dbt，部署與維護時間縮減 50% 以上。',
@@ -220,6 +244,8 @@ export const EXPERIENCE: Job[] = [
     role: { en: 'Data Engineer', zh: '資料工程師' },
     company: { en: 'DATARGET', zh: '創代科技 DATARGET' },
     period: 'Nov 2025 – Apr 2026',
+    start: '2025-11-01',
+    end: '2026-04-30',
     headline: {
       en: 'Cut ETL time from 40 minutes to under 1 minute per file.',
       zh: '單一檔案的 ETL 時間由 40 分鐘降至 1 分鐘內。',
@@ -253,6 +279,8 @@ export const EXPERIENCE: Job[] = [
     role: { en: 'Go-to-Market Intern', zh: 'GTM 實習生' },
     company: { en: 'Logitech', zh: '羅技 Logitech' },
     period: 'Jul 2024 – Aug 2024',
+    start: '2024-07-01',
+    end: '2024-08-31',
     headline: {
       en: 'Gave the go-to-market team a live view of product metrics.',
       zh: '建置自動化 Tableau 儀表板，讓 GTM 團隊即時掌握產品指標。',
@@ -274,6 +302,8 @@ export const EXPERIENCE: Job[] = [
     role: { en: 'Data Analyst Intern', zh: '資料分析實習生' },
     company: { en: 'uppeta', zh: 'uppeta' },
     period: 'Apr 2024 – Jun 2024',
+    start: '2024-04-01',
+    end: '2024-06-30',
     headline: {
       en: 'Turned user behaviour data into advice for 5+ clients.',
       zh: '參與 5 個以上客戶專案，以使用者行為資料提出改善建議。',
@@ -295,6 +325,8 @@ export const EXPERIENCE: Job[] = [
     role: { en: 'Data Engineer Intern', zh: '資料工程實習生' },
     company: { en: 'CXG', zh: 'CXG' },
     period: 'Jul 2023 – Apr 2024',
+    start: '2023-07-01',
+    end: '2024-04-30',
     headline: {
       en: 'Cut reporting time by 75% with Power BI on Azure Synapse.',
       zh: '以 Power BI 搭配 Azure Synapse，報表時間縮短 75%。',
@@ -324,6 +356,8 @@ export const EXPERIENCE: Job[] = [
     role: { en: 'Data Analyst Intern', zh: '資料分析實習生' },
     company: { en: 'Cathay Financial Holdings', zh: '國泰金控' },
     period: 'Feb 2023 – Jul 2023',
+    start: '2023-02-01',
+    end: '2023-07-31',
     headline: {
       en: 'Designed a FHIR-standard schema for sharing medical records.',
       zh: '設計符合 FHIR 標準的醫療資料交換 Schema。',
@@ -359,12 +393,13 @@ export const EDUCATION = [
   },
 ];
 
-export const CERTS: string[] = [
-  'Databricks Certified Data Engineer Associate',
-  'Databricks Knowledge Badge: Automated Deployment with Declarative Automation Bundles',
-  'Relational Databases (RDBMS) Essentials',
-  'Using Databases with Python',
-  'SQL: A Practical Introduction for Querying Databases',
+export const CERTS: { name: string; issuer: string; featured?: boolean }[] = [
+  { name: 'AWS Certified Solutions Architect – Associate', issuer: 'Amazon Web Services', featured: true },
+  { name: 'Databricks Certified Data Engineer Associate', issuer: 'Databricks', featured: true },
+  { name: 'Databricks Knowledge Badge: Automated Deployment with Declarative Automation Bundles', issuer: 'Databricks' },
+  { name: 'Relational Databases (RDBMS) Essentials', issuer: 'IBM' },
+  { name: 'Using Databases with Python', issuer: 'University of Michigan' },
+  { name: 'SQL: A Practical Introduction for Querying Databases', issuer: 'IBM' },
 ];
 
 export const SKILLS: { group: L; items: string[] }[] = [
@@ -375,7 +410,7 @@ export const SKILLS: { group: L; items: string[] }[] = [
   },
   {
     group: { en: 'Platforms and storage', zh: '平台與資料庫' },
-    items: ['Databricks', 'Azure Synapse', 'Snowflake', 'ClickHouse', 'SQL Server', 'MongoDB', 'Apache Iceberg'],
+    items: ['AWS', 'Databricks', 'Azure Synapse', 'Snowflake', 'ClickHouse', 'SQL Server', 'MongoDB', 'Apache Iceberg'],
   },
   {
     group: { en: 'Analytics', zh: '報表與視覺化' },
@@ -384,6 +419,31 @@ export const SKILLS: { group: L; items: string[] }[] = [
   {
     group: { en: 'AI engineering', zh: 'AI 相關' },
     items: ['LangGraph', 'LangChain', 'RAG', 'MCP', 'DeepEval'],
+  },
+];
+
+export const BEYOND: { id: 'tennis' | 'teacher'; big: string; unit: L; title: L; period: string; note: L }[] = [
+  {
+    id: 'tennis',
+    big: '10',
+    unit: { en: 'friends taught', zh: '位朋友入門' },
+    title: { en: 'Tennis coach for friends, unpaid', zh: '教朋友打網球，不收錢' },
+    period: '',
+    note: {
+      en: 'I teach friends the basics for free so they can find out whether they like tennis before paying for lessons. The ones who want to keep going, I send to a proper coach.',
+      zh: '想讓朋友先摸摸看網球再說。很多人一開始就找教練，學費繳了一大筆才發現自己沒那麼喜歡。所以我先陪他們打，有興趣想往下學的，再去找專業教練。',
+    },
+  },
+  {
+    id: 'teacher',
+    big: '2021–22',
+    unit: { en: 'while finishing my master\'s', zh: '邊念碩士邊教書' },
+    title: { en: 'Substitute teacher, Yong\'an Elementary School', zh: '永安國小 代課老師' },
+    period: 'Sep 2021 – Dec 2022',
+    note: {
+      en: 'For a year and a half during COVID, I was a substitute teacher at an elementary school.',
+      zh: '疫情那一年半，我在永安國小當代課老師。',
+    },
   },
 ];
 
@@ -420,7 +480,7 @@ export const CLUBS: { role: L; org: L; period: string; note: L }[] = [
 // ---------- Projects ----------
 
 export type LiveProject = {
-  id: 'kitchen-clash' | 'feng' | 'bucket';
+  id: 'kitchen-clash' | 'verba' | 'feng' | 'bucket';
   name: L;
   url: string;
   kind: L;
@@ -447,6 +507,23 @@ export const LIVE: LiveProject[] = [
     ],
     cta: { en: 'Play in your browser', zh: '馬上玩' },
     note: { en: 'Hosted on a free tier, so the first load can take up to a minute.', zh: '用免費主機，第一次開要等個一分鐘，拜託等它一下。' },
+  },
+  {
+    id: 'verba',
+    name: { en: 'Port Verba', zh: 'Port Verba' },
+    url: 'https://claude.ai/artifact/43XtHiQNN8Zct8oiegfAJz',
+    kind: { en: 'Speaking practice game', zh: '練口說的遊戲' },
+    pitch: {
+      en: 'A role-playing game for speaking a foreign language out loud. The harbour is a map you walk with the arrow keys, and each building is a daily quest: small talk with a ferry pilot, a mock job interview, the same story told in four, three and two minutes. After each round an AI coach scores you, fixes your grammar, and brings your mistakes back until you get them right.',
+      zh: '一個逼自己開口的 RPG。整個港口是一張地圖，用方向鍵走到建築門口就進關卡。有時候是跟渡船駕駛閒聊，有時候是模擬面試，還有一關要把同一件事講三次，4 分鐘、3 分鐘、2 分鐘。每關結束 AI 教練會打分數、抓文法，講錯的句子之後還會再跑回來，講對才放過你。',
+    },
+    facts: [
+      { en: 'English, French, German, Japanese', zh: '英、法、德、日文' },
+      { en: 'Speak by voice, characters answer out loud', zh: '用講的，角色也會講話回你' },
+      { en: 'Feedback with a CEFR level', zh: '講評附 CEFR 等級' },
+    ],
+    cta: { en: 'Start practising', zh: '開始練' },
+    note: { en: 'Made as a Claude artifact. Works best with a microphone.', zh: '用 Claude artifact 做的，有麥克風最好玩。' },
   },
   {
     id: 'feng',

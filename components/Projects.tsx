@@ -27,6 +27,46 @@ function LiveArt({ id }: { id: string }) {
       </svg>
     );
   }
+  if (id === 'verba') {
+    // A harbour at dusk: the lighthouse beam sweeps and speech bubbles drift up from the docks.
+    return (
+      <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" className="show-art" aria-hidden="true">
+        <rect width="400" height="300" fill="#16303f" />
+        <circle cx="86" cy="62" r="20" fill="#e9e4c9" />
+        <g className="art-beam">
+          <path d="M318 96 L400 70 L400 122 Z" fill="#f6c453" opacity="0.5" />
+          <path d="M318 96 L236 76 L236 116 Z" fill="#f6c453" opacity="0.32" />
+        </g>
+        <rect x="306" y="96" width="24" height="120" fill="#e8ece6" />
+        <rect x="306" y="124" width="24" height="10" fill="#f08470" />
+        <rect x="306" y="160" width="24" height="10" fill="#f08470" />
+        <rect x="302" y="84" width="32" height="14" rx="3" fill="#0d202b" />
+        <circle cx="318" cy="91" r="6" fill="#f6c453" />
+        <path d="M0 200 h70 v-34 h22 v-20 h26 v54 h28 v-40 h30 v40 h90 v100 H0 Z" fill="#0d202b" />
+        <rect x="76" y="176" width="8" height="10" fill="#f6c453" />
+        <rect x="128" y="166" width="8" height="10" fill="#f6c453" />
+        <rect x="182" y="176" width="8" height="10" fill="#f6c453" />
+        <rect y="216" width="400" height="84" fill="#0c1d29" />
+        <rect x="40" y="230" width="90" height="4" rx="2" fill="#5fd0ac" opacity="0.35" />
+        <rect x="180" y="250" width="140" height="4" rx="2" fill="#5fd0ac" opacity="0.25" />
+        <g className="art-say" style={{ animationDelay: '0s' }}>
+          <rect x="92" y="120" width="82" height="34" rx="12" fill="#f6c453" />
+          <path d="M108 154 l-6 12 l16 -12 Z" fill="#f6c453" />
+          <text x="133" y="142" textAnchor="middle" fontSize="15" fontWeight="700" fill="#2a1c00">Hello!</text>
+        </g>
+        <g className="art-say" style={{ animationDelay: '1.6s' }}>
+          <rect x="176" y="104" width="86" height="34" rx="12" fill="#5fd0ac" />
+          <path d="M240 138 l8 12 l-18 -12 Z" fill="#5fd0ac" />
+          <text x="219" y="126" textAnchor="middle" fontSize="15" fontWeight="700" fill="#0a1a25">Bonjour</text>
+        </g>
+        <g className="art-say" style={{ animationDelay: '3.2s' }}>
+          <rect x="120" y="70" width="96" height="34" rx="12" fill="#f08470" />
+          <path d="M140 104 l-4 12 l16 -12 Z" fill="#f08470" />
+          <text x="168" y="92" textAnchor="middle" fontSize="15" fontWeight="700" fill="#0a1a25">こんにちは</text>
+        </g>
+      </svg>
+    );
+  }
   if (id === 'feng') {
     // A week of plans: friends pile onto the days they are in for.
     const dots: [number, number, string, number][] = [

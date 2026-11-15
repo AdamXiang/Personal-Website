@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Check, Copy, Download, Github, Instagram, Linkedin, Mail, PenLine } from 'lucide-react';
-import { ABOUT, CERTS, CLUBS, EDUCATION, EXPERIENCE, PROFILE, SKILLS, UI } from './data/content';
+import { Award, Check, Copy, GraduationCap, Download, Github, Instagram, Linkedin, Mail, PenLine } from 'lucide-react';
+import { ABOUT, BEYOND, CERTS, CLUBS, EDUCATION, EXPERIENCE, PROFILE, SKILLS, UI } from './data/content';
+import { jobState } from './dates';
 import { LangProvider, useLang } from './lang';
 import { Lineage } from './components/Lineage';
 import { Hero } from './components/Hero';
@@ -45,7 +46,8 @@ function Nav() {
 
 function Work() {
   const { t } = useLang();
-  const [openId, setOpenId] = useState<string | null>(EXPERIENCE[0].id);
+  // Open the first role that has details (an upcoming role has none yet).
+  const [openId, setOpenId] = useState<string | null>(EXPERIENCE.find((j) => j.bullets.length > 0)?.id ?? null);
   return (
     <section id="work" className="section">
       <div className="wrap">
@@ -54,24 +56,28 @@ function Work() {
         <ol className="jobs">
           {EXPERIENCE.map((job) => {
             const open = openId === job.id;
+            const state = jobState(job);
+            const hasDetails = job.bullets.length > 0;
             return (
-              <li key={job.id} className="job">
+              <li key={job.id} className={`job job-${state}`}>
                 <p className="job-period">
-                  {job.period}
-                  {job.current && <span className="job-now">{t(UI.work.now)}</span>}
+                  {state === 'upcoming' && job.upcomingPeriod ? t(job.upcomingPeriod) : job.period}
+                  {state === 'current' && <span className="job-now">{t(UI.work.now)}</span>}
+                  {state === 'upcoming' && <span className="job-now job-soon">{t(UI.work.soon)}</span>}
                 </p>
                 <div className="job-body">
                   <h3>
                     {t(job.role)} <span className="job-at">{t(job.company)}</span>
                   </h3>
                   <p className="job-headline">{t(job.headline)}</p>
-                  {open && (
+                  {open && hasDetails && (
                     <ul className="job-bullets" id={`job-${job.id}`}>
                       {job.bullets.map((b) => (
                         <li key={b.en}>{t(b)}</li>
                       ))}
                     </ul>
                   )}
+                  {hasDetails && (
                   <div className="job-foot">
                     <span className="tags">
                       {job.tech.map((x) => (
@@ -82,6 +88,7 @@ function Work() {
                       {t(open ? UI.work.less : UI.work.more)}
                     </button>
                   </div>
+                  )}
                 </div>
               </li>
             );
@@ -127,10 +134,21 @@ function About() {
               ))}
             </ul>
             <h3>{t(UI.about.certs)}</h3>
+            <ul className="cert-badges">
+              {CERTS.filter((c) => c.featured).map((c) => (
+                <li key={c.name} className={`cert cert-${c.issuer.startsWith('Amazon') ? 'aws' : 'dbx'}`}>
+                  <Award size={26} aria-hidden="true" />
+                  <span>
+                    <strong>{c.name}</strong>
+                    <span>{c.issuer}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
             <ul className="plain">
-              {CERTS.map((c) => (
-                <li key={c}>
-                  <span>{c}</span>
+              {CERTS.filter((c) => !c.featured).map((c) => (
+                <li key={c.name}>
+                  <span>{c.name}</span>
                 </li>
               ))}
             </ul>
@@ -153,7 +171,23 @@ function About() {
           ))}
         </dl>
 
-        <h3 className="sub">{t(UI.about.clubs)}</h3>
+        <h3 className="sub">{t(UI.about.beyond)}</h3>
+        <ul className="beyond">
+          {BEYOND.map((b) => (
+            <li key={b.id} className={`beyond-card beyond-${b.id}`}>
+              <p className="beyond-big">
+                {b.id === 'teacher' && <GraduationCap size={30} aria-hidden="true" />}
+                <span>{b.big}</span>
+              </p>
+              <p className="beyond-unit">{t(b.unit)}</p>
+              <h4>{t(b.title)}</h4>
+              {b.period && <p className="beyond-period">{b.period}</p>}
+              <p>{t(b.note)}</p>
+            </li>
+          ))}
+        </ul>
+
+        <h4 className="clubs-title">{t(UI.about.clubs)}</h4>
         <ul className="clubs">
           {CLUBS.map((c) => (
             <li key={c.org.en}>

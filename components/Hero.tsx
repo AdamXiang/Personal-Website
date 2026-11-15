@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { ArrowDown, Download } from 'lucide-react';
 import { CHAPTERS, PROFILE, UI } from '../data/content';
 import { useLang } from '../lang';
+import { afterLionStart } from '../dates';
 
 const MEDALS = ['bronze', 'silver', 'gold'] as const;
 
@@ -172,7 +173,7 @@ export function Hero() {
         </div>
         <p className="status">
           <span className="status-dot" aria-hidden="true" />
-          {t(UI.hero.status)}
+          {t(afterLionStart() ? UI.hero.status.after : UI.hero.status.before)}
         </p>
       </div>
 

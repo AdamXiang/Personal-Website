@@ -663,6 +663,13 @@ button {
   font-size: 0.82rem;
   font-weight: 600;
 }
+.job-soon {
+  background: var(--gold-bright);
+  color: var(--ink);
+}
+.job-upcoming .job-headline {
+  color: var(--muted);
+}
 .job-period {
   color: var(--muted);
   font-variant-numeric: tabular-nums;
@@ -747,10 +754,17 @@ button {
   --cta-bg: #11241f;
   --cta-fg: #fff;
 }
+.show-verba {
+  --bg: #10242f;
+  --fg: #eef4ef;
+  --soft: #c3d2cf;
+  --cta-bg: #f6c453;
+  --cta-fg: #2a1c00;
+}
 .show-bucket {
-  --bg: #14252b;
-  --fg: #f1f5f3;
-  --soft: #c2d0cc;
+  --bg: #e4ece8;
+  --fg: #14252b;
+  --soft: #3d4f55;
   --cta-bg: #ff5c8a;
   --cta-fg: #14252b;
 }
@@ -854,6 +868,38 @@ svg.show-art {
 }
 
 /* small looping animations inside the showcase art */
+.art-beam {
+  transform-box: view-box;
+  transform-origin: 318px 96px;
+  animation: beam 7s ease-in-out infinite alternate;
+}
+@keyframes beam {
+  from {
+    transform: rotate(-12deg);
+  }
+  to {
+    transform: rotate(14deg);
+  }
+}
+.art-say {
+  animation: say 4.8s ease-out infinite both;
+}
+@keyframes say {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  10%,
+  70% {
+    opacity: 1;
+    transform: none;
+  }
+  85%,
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
 .art-paddle {
   transform-box: fill-box;
   transform-origin: center;
@@ -1487,6 +1533,130 @@ svg.show-art {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2rem;
 }
+.cert-badges {
+  list-style: none;
+  margin: 0.75rem 0 1rem;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+.cert {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  border: 2px solid var(--ink);
+  background: var(--card);
+}
+.cert svg {
+  flex: none;
+  color: var(--accent);
+}
+.cert-aws {
+  --accent: #e8890c;
+  box-shadow: 5px 5px 0 #e8890c;
+}
+.cert-dbx {
+  --accent: #e0442f;
+  box-shadow: 5px 5px 0 #e0442f;
+}
+.cert > span {
+  display: grid;
+  line-height: 1.35;
+}
+.cert strong {
+  font-family: var(--display);
+}
+.cert > span > span {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.beyond {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+.beyond-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  border-radius: 22px;
+  color: #fff;
+}
+.beyond-card {
+  position: relative;
+  overflow: hidden;
+}
+.beyond-tennis {
+  background: #2f7d4f;
+}
+/* a tennis ball tucked into the corner, seams and all */
+.beyond-tennis::after {
+  content: '';
+  position: absolute;
+  top: -34px;
+  right: -34px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 0% 50%, transparent 54px, rgba(255, 255, 255, 0.85) 55px, rgba(255, 255, 255, 0.85) 59px, transparent 60px),
+    radial-gradient(circle at 100% 50%, transparent 54px, rgba(255, 255, 255, 0.85) 55px, rgba(255, 255, 255, 0.85) 59px, transparent 60px), #d8ec3a;
+  opacity: 0.9;
+}
+.beyond-card > * {
+  position: relative;
+  z-index: 1;
+}
+.beyond-teacher {
+  background: #1f6fb3;
+}
+.beyond-big {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(3rem, 7vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.beyond-tennis .beyond-big {
+  color: #e6f553;
+}
+.beyond-teacher .beyond-big {
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  color: #ffd75a;
+}
+.beyond-unit {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+.beyond-card h4 {
+  margin-top: 0.6rem;
+  font-size: 1.35rem;
+}
+.beyond-period {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+.beyond-card p:last-child {
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 52ch;
+}
+.clubs-title {
+  margin: 2.5rem 0 1rem;
+}
+@media (max-width: 760px) {
+  .beyond {
+    grid-template-columns: 1fr;
+  }
+}
 .club-period {
   color: var(--muted);
   font-variant-numeric: tabular-nums;
@@ -1694,6 +1864,9 @@ svg.show-art {
   .hero-line {
     opacity: 1;
     transform: none;
+  }
+  .art-say {
+    opacity: 1;
   }
 }
 

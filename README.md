@@ -6,8 +6,8 @@ Live at <https://adam-website-tau.vercel.app>.
 ## What is on the page
 
 - **Hero**: three lines for three stages of my path (bronze, silver, gold) over an animated canvas where scattered data rows settle into tidy lanes.
-- **Projects**: three live products (Kitchen Clash, 瘋起來, 在地與出走 Bucket List), featured repositories, and a searchable outline of my GitHub grouped by topic.
-- **Experience**: six roles, each with a one-line result and expandable details.
+- **Projects**: four live products (Kitchen Clash, Port Verba, 瘋起來, 在地與出走 Bucket List), featured repositories, and a searchable outline of my GitHub grouped by topic.
+- **Experience**: roles with a one-line result and expandable details. "Now" and "Starting soon" badges come from the `start` and `end` dates in `data/content.ts`, so the site switches to Lion Travel on its own on 7 Dec 2026.
 - **Eswatini**: 237 days of diplomatic alternative service, with a diary heatmap built from my Instagram export and a photo gallery.
 - **About and contact**: education, tools, certifications and a one-page résumé PDF.
 
