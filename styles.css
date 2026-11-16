@@ -1643,11 +1643,13 @@ svg.show-art {
   width: 64px;
 }
 .program-logo-wide img {
-  object-fit: contain;
-  object-position: left center;
-  padding: 8px 0 8px 6px;
-  width: 340%;
+  /* the wordmark is wide; show only the square mark on its left */
+  justify-self: start;
+  width: auto;
+  height: 100%;
   max-width: none;
+  object-fit: fill;
+  padding: 12px 0 12px 9px;
 }
 .program-logo-dark {
   background: var(--pine-deep);
