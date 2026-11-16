@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Award, Check, Copy, GraduationCap, Download, Github, Instagram, Linkedin, Mail, PenLine } from 'lucide-react';
-import { ABOUT, BEYOND, CERTS, CLUBS, EDUCATION, EXPERIENCE, PROFILE, SKILLS, UI } from './data/content';
+import { ArrowUpRight, Check, Copy, GraduationCap, Download, Github, Instagram, Linkedin, Mail, PenLine } from 'lucide-react';
+import { ABOUT, BEYOND, CERTS, CLUBS, EDUCATION, EXPERIENCE, PROFILE, PROGRAMS, SKILLS, UI } from './data/content';
 import { jobState } from './dates';
 import { LangProvider, useLang } from './lang';
 import { Lineage } from './components/Lineage';
@@ -99,6 +99,20 @@ function Work() {
   );
 }
 
+// An organisation's logo loaded from its own site. If it cannot load, its initials show instead.
+function Logo({ src, initials, className }: { src?: string; initials: string; className: string }) {
+  const [failed, setFailed] = useState(!src);
+  return (
+    <span className={className} aria-hidden="true">
+      {failed ? (
+        <span className="logo-initials">{initials}</span>
+      ) : (
+        <img src={src} alt="" loading="lazy" referrerPolicy="no-referrer" onError={() => setFailed(true)} />
+      )}
+    </span>
+  );
+}
+
 function About() {
   const { t } = useLang();
   const [fallback, setFallback] = useState(false);
@@ -136,8 +150,8 @@ function About() {
             <h3>{t(UI.about.certs)}</h3>
             <ul className="cert-badges">
               {CERTS.filter((c) => c.featured).map((c) => (
-                <li key={c.name} className={`cert cert-${c.issuer.startsWith('Amazon') ? 'aws' : 'dbx'}`}>
-                  <Award size={26} aria-hidden="true" />
+                <li key={c.name} className={`cert cert-${c.issuer.toLowerCase().split(' ')[0]}`}>
+                  <Logo src={c.icon} initials={c.issuer.split(' ').map((w) => w[0]).join('').slice(0, 3)} className="cert-logo" />
                   <span>
                     <strong>{c.name}</strong>
                     <span>{c.issuer}</span>
@@ -183,6 +197,26 @@ function About() {
               <h4>{t(b.title)}</h4>
               {b.period && <p className="beyond-period">{b.period}</p>}
               <p>{t(b.note)}</p>
+            </li>
+          ))}
+        </ul>
+
+        <h3 className="sub">{t(UI.about.programs)}</h3>
+        <ul className="programs">
+          {PROGRAMS.map((p) => (
+            <li key={p.id}>
+              <a className="program" href={p.url} target="_blank" rel="noopener noreferrer">
+                <Logo src={p.logo} initials={p.initials} className={`program-logo${p.logoStyle ? ` program-logo-${p.logoStyle}` : ''}`} />
+                <span className="program-body">
+                  <span className="program-top">
+                    <span className="program-year">{p.year}</span>
+                    <span className="program-detail">{t(p.detail)}</span>
+                  </span>
+                  <span className="program-name">{t(p.name)}</span>
+                  {p.note && <span className="program-note">{t(p.note)}</span>}
+                </span>
+                <ArrowUpRight size={18} className="program-arrow" aria-hidden="true" />
+              </a>
             </li>
           ))}
         </ul>

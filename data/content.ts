@@ -113,6 +113,7 @@ export const UI = {
     skills: { en: 'Tools I use', zh: '常用工具' },
     certs: { en: 'Certifications', zh: '證照' },
     beyond: { en: 'Away from data', zh: '資料以外' },
+    programs: { en: 'Programmes and communities', zh: '參加過的計畫與社群' },
     clubs: { en: 'Student clubs', zh: '學生時期的社團' },
   },
   contact: {
@@ -393,9 +394,17 @@ export const EDUCATION = [
   },
 ];
 
-export const CERTS: { name: string; issuer: string; featured?: boolean }[] = [
-  { name: 'AWS Certified Solutions Architect – Associate', issuer: 'Amazon Web Services', featured: true },
-  { name: 'Databricks Certified Data Engineer Associate', issuer: 'Databricks', featured: true },
+// The first three are shown as badges. `icon` is an image from the issuer
+// (local file or the issuer's own site); if it fails to load, the issuer's initials show.
+export const CERTS: { name: string; issuer: string; icon?: string; featured?: boolean }[] = [
+  {
+    name: 'AWS Certified Solutions Architect – Associate',
+    issuer: 'Amazon Web Services',
+    icon: 'https://a0.awsstatic.com/libra-css/images/site/touch-icon-ipad-144-smile.png',
+    featured: true,
+  },
+  { name: 'Databricks Certified Data Engineer Associate', issuer: 'Databricks', icon: './brands/databricks.svg', featured: true },
+  { name: 'Data Engineer Associate', issuer: 'DataCamp', icon: './brands/datacamp.svg', featured: true },
   { name: 'Databricks Knowledge Badge: Automated Deployment with Declarative Automation Bundles', issuer: 'Databricks' },
   { name: 'Relational Databases (RDBMS) Essentials', issuer: 'IBM' },
   { name: 'Using Databases with Python', issuer: 'University of Michigan' },
@@ -436,13 +445,95 @@ export const BEYOND: { id: 'tennis' | 'teacher'; big: string; unit: L; title: L;
   },
   {
     id: 'teacher',
-    big: '2021–22',
-    unit: { en: 'while finishing my master\'s', zh: '邊念碩士邊教書' },
+    big: '4',
+    unit: { en: 'months as a substitute teacher', zh: '個月的代課老師' },
     title: { en: 'Substitute teacher, Yong\'an Elementary School', zh: '永安國小 代課老師' },
-    period: 'Sep 2021 – Dec 2022',
+    period: 'Oct 2021 – Jan 2022',
     note: {
-      en: 'For a year and a half during COVID, I was a substitute teacher at an elementary school.',
-      zh: '疫情那一年半，我在永安國小當代課老師。',
+      en: 'During COVID I spent four months teaching at an elementary school, alongside my master\'s.',
+      zh: '疫情那陣子，我一邊念碩士，一邊在永安國小代了四個月的課。',
+    },
+  },
+];
+
+export type Program = {
+  id: string;
+  name: L;
+  detail: L;
+  year: string;
+  url: string;
+  logo: string; // hot-linked from the organiser's own site; initials show if it fails
+  initials: string;
+  logoStyle?: 'wide' | 'dark';
+  note?: L;
+};
+
+export const PROGRAMS: Program[] = [
+  {
+    id: 'twds',
+    name: { en: 'Taiwan Data Science Association Mentorship Program', zh: '台灣資料科學協會 領航計畫' },
+    detail: { en: '7th cohort, data engineering track', zh: '第七屆 Data Engineer 組' },
+    year: '2026',
+    url: 'https://www.datascienceassoc.org/mentorship',
+    logo: 'https://www.datascienceassoc.org/images/twdsa.png',
+    initials: 'TWDS',
+    logoStyle: 'wide',
+    note: {
+      en: 'Three months with an industry mentor, a meeting every month, and a Demo Day at the end.',
+      zh: '為期三個月，業界導師每個月帶一次，最後上台參加 Demo Day。',
+    },
+  },
+  {
+    id: 'mentorship',
+    name: { en: 'The MentorShip Taiwan', zh: '曼陀號領航計畫' },
+    detail: { en: '8th cohort, data analytics track', zh: '第八屆 DA 組' },
+    year: '2026',
+    url: 'https://www.thementorship.tw',
+    logo: 'https://www.thementorship.tw/images/program-logo/logo.png',
+    initials: '曼陀',
+    note: {
+      en: 'A 100-day programme where working professionals mentor each track, with monthly meetings, reading groups and workshops.',
+      zh: '一百天的計畫，每組都有業界的「航海士」帶。每個月開一次月會，中間還有讀書會跟工作坊。',
+    },
+  },
+  {
+    id: 'wids',
+    name: { en: 'WiDS Taipei Conference 2026', zh: 'TWiDS 2026 年會' },
+    detail: { en: 'Volunteer', zh: '志工' },
+    year: '2026',
+    url: 'https://www.widstaipei.org',
+    logo: 'https://static1.squarespace.com/static/5b47ca4e8ab7220f64fc1733/t/65cdea9ff94b754617b35827/1707993759143/WIDS_LOGO_2024_transparent.png?format=300w',
+    initials: 'WiDS',
+    note: {
+      en: 'The Taipei edition of Women in Data Science, held on 24 May 2026.',
+      zh: 'Women in Data Science 的台北場，2026 年 5 月 24 日辦在集思台大會議中心。',
+    },
+  },
+  {
+    id: 'openhci',
+    name: { en: 'OpenHCI 2022', zh: 'OpenHCI 2022' },
+    detail: { en: 'Participant', zh: '學員' },
+    year: '2022',
+    url: 'https://www.2022.openhci.com',
+    logo: 'https://www.2022.openhci.com/image/OpenHCI22_logo.png',
+    initials: 'HCI',
+    logoStyle: 'dark',
+    note: {
+      en: 'A five-day human-computer interaction workshop themed CyberOasis: design thinking, Arduino and Processing, then a prototype shown at Songshan Cultural and Creative Park.',
+      zh: '五天的人機互動工作坊，那年主題是「賽博綠洲」。先上設計思考、Arduino 跟 Processing，最後做出原型，拿到松山文創園區展出。',
+    },
+  },
+  {
+    id: 'xchange',
+    name: { en: 'XChange Academy', zh: 'XChange 互聯網大學' },
+    detail: { en: '6th cohort, data analytics track', zh: '第六屆 DA 組' },
+    year: '2022',
+    url: 'https://xchange.com.tw/xchange-college/',
+    logo: 'https://xchange.com.tw/wp-content/uploads/2024/09/cropped-XC_Logo-270x270.png',
+    initials: 'XC',
+    note: {
+      en: 'Run by XChange, a community of people in Taiwan\'s internet industry. Mentors volunteer to teach and coach students one on one.',
+      zh: 'XChange 網路人才社群辦的計畫，業界導師免費上課，也會一對一帶學生。',
     },
   },
 ];
